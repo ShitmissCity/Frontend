@@ -75,3 +75,13 @@
         display: none;
     }
 }
+.faq-transition {
+    transition: all 0.5s ease;
+    transform: translateX(0);
+    opacity: 1;
+}
+.faq-transition-enter,
+.faq-transition-exit {
+    transform: translateX(-5px);
+    opacity: 0;
+}

@@ -1,18 +1,31 @@
 import React, { useEffect, lazy, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 import { useTitle } from "../components/Title";
 import "./Home.scss";
+const FAQ = lazy(() => import("./FAQ"));
+const Schedule = lazy(() => import("./Schedule"));
+const Transition = lazy(() => import("../components/Transition"));
 
 export default function Home() {
     const { setTitle } = useTitle();
     const [tab, setTab] = useState(0);
+    const [fade, setFade] = useState(true);
+    const timeout = 500;
     const pages = [
-        { name: "FAQ", component: lazy(() => import("./FAQ")) },
-        { name: "Schedule", component: lazy(() => import("./Schedule")) },
+        { name: "FAQ", component: <FAQ /> },
+        { name: "Schedule", component: <Schedule /> },
     ]
 
     useEffect(() => {
         setTitle("Home");
     }, [setTitle]);
+
+    useEffect(() => {
+        setFade(false);
+        setTimeout(() => {
+            setFade(true);
+        }, timeout);
+    }, [tab]);
 
     return (
         <div>
@@ -29,7 +42,6 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* <!-- Hero footer: will stick at the bottom --> */}
                     <div className="hero-foot">
                         <nav className="tabs is-boxed is-fullwidth">
                             <div className="container">
@@ -39,7 +51,6 @@ export default function Home() {
                                             <a>{page.name}</a>
                                         </li>
                                     ))}
-                                    {/* <li v-for="(item, index) in pages" key="item.name" onClick="swapPage(index)" className="{'is-active': currentPage === index }"><a style={{ border: 0 }}>{{ item.name }}</a></li> */}
                                 </ul>
                             </div>
                         </nav>
@@ -53,13 +64,18 @@ export default function Home() {
             </div>
             <div className="is-dark" style={{ zIndex: 1 }}>
                 <section className="section app-background">
-                    <div className="container">
+                    <div className="container transition">
+                        <Transition classNames="faq-transition"
+                            timeout={timeout}
+                            in={fade}>
+                            {pages[tab].component}
+                        </Transition>
                         {/* <transition name="faq-transition" mode="out-in">
                             <component is="pages[currentPage].component"></component>
                         </transition> */}
                     </div>
                 </section>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
