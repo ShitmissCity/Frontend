@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.scss";
+const Home = lazy(() => import("./pages/Home"));
 
 export default function App() {
-    const [count, setCount] = useState(0);
     return (
-        <div>
-            <p>You clicked {count} times</p>
-            <button onClick={() => setCount(count + 1)}>Click me</button>
-        </div>
+        <Routes>
+            <Route path="/" element={<Home />}/>
+        </Routes>
     );
 }
