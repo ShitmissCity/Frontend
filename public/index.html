@@ -46,19 +46,28 @@
             font-size: 18px;
         }
 
-        ::-webkit-scrollbar {
-            width: var(--scrollbar-width);
-            background-color: rgb(var(--bs-dark-rgb));
+        @font-face {
+            font-family: Resolve Sans;
+            src: url("../fonts/Resolve-Light.eot");
+            src: url("../fonts/Resolve-Light.eot?#iefix") format("embedded-opentype"),
+                url("../fonts/Resolve-Light.woff2") format("woff2"), url("../fonts/Resolve-Light.woff") format("woff"),
+                url("../fonts/Resolve-Light.ttf") format("truetype"),
+                url("../fonts/Resolve-Light.svg#Resolve-Light") format("svg");
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #666;
-            border-top-left-radius: calc(var(--scrollbar-width)/var(--scrollbar-rounder));
-            border-bottom-left-radius: calc(var(--scrollbar-width)/var(--scrollbar-rounder));
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #888;
+        @font-face {
+            font-family: Familiar Pro;
+            src: url("../fonts/FamiliarPro-Bold.eot");
+            src: url("../fonts/FamiliarPro-Bold.eot?#iefix") format("embedded-opentype"),
+                url("../fonts/FamiliarPro-Bold.woff2") format("woff2"), url("../fonts/FamiliarPro-Bold.woff") format("woff"),
+                url("../fonts/FamiliarPro-Bold.ttf") format("truetype"),
+                url("../fonts/FamiliarPro-Bold.svg#FamiliarPro-Bold") format("svg");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
         }
     </style>
 </head>
