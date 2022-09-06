@@ -40,10 +40,23 @@
 
         html,
         body {
-            background-color: var(--app-background-color);
             height: 100%;
             font-family: Resolve Sans, sans-serif;
             font-size: 18px;
+        }
+
+        #fill {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -100000;
+            height: 100%;
+            width: 100%;
+            background-color: var(--app-background-color);
+        }
+
+        #root {
+            z-index: -100000;
         }
 
         @font-face {
@@ -78,6 +91,7 @@
     <noscript>
         You need to enable JavaScript to run this app.
     </noscript>
+    <div id="fill"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
