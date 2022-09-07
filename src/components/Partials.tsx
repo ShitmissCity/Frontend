@@ -46,10 +46,12 @@ export function Header() {
                     ))}
                 </div>
                 <div className="navbar-end">
-                    {/* //TODO: Add user buttons when auth is done */}
-                    <div className="buttons">
-                        <a className="button button-color"><FontAwesomeIcon icon={solid('arrow-right-to-bracket')} /><span style={{ marginLeft: 7 }}>Login</span></a>
-                        <a className="button button-color"><FontAwesomeIcon icon={brands('discord')} /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
+                    <div className="navbar-item">
+                        {/* //TODO: Add user buttons when auth is done */}
+                        <div className="buttons">
+                            <a className="button button-color"><FontAwesomeIcon icon={solid('arrow-right-to-bracket')} /><span style={{ marginLeft: 7 }}>Login</span></a>
+                            <a className="button button-color"><FontAwesomeIcon icon={brands('discord')} /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
+                        </div>
                     </div>
                 </div>
             </div>
