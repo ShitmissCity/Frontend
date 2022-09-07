@@ -1,8 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "./index.scss";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "@fortawesome/fontawesome-free/js/all.js";
 import { Footer, Header } from "./components/Partials";
 import Title from "./components/Title";
 const App = lazy(() => import("./App"));

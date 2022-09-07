@@ -1,6 +1,11 @@
 /*
 * === BODY, APP BACKGROUND ETC. ===
 */
+body,
+html {
+    font-size: 18px;
+    font-family: Resolve Sans, sans-serif;
+}
 a {
     color: #ee8600;
     transition: color 0.2s ease-in;

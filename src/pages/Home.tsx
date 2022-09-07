@@ -1,5 +1,4 @@
-import React, { useEffect, lazy, useState } from "react";
-import { CSSTransition } from "react-transition-group";
+import React, { useEffect, lazy, useState, Suspense } from "react";
 import { useTitle } from "../components/Title";
 import "./Home.scss";
 const FAQ = lazy(() => import("./FAQ"));
@@ -58,18 +57,20 @@ export default function Home() {
                 </div >
                 <div className="video-background">
                     <div className="video-foreground">
-                        <iframe frameBorder={0} height="100%" width="100%" src="https://youtube.com/embed/EJ9N0PGcc2Q?controls=0&showinfo=0&rel=0&autoplay=1&mute=1&loop=1&playlist=EJ9N0PGcc2Q" />
+                        <iframe frameBorder={0} height="100%" width="100%" src="https://youtube.com/embed/EJ9N0PGcc2Q?controls=0&showinfo=0&rel=0&autoplay=1&mute=1&loop=1&playlist=EJ9N0PGcc2Q" title="background video" />
                     </div>
                 </div>
             </div>
             <div className="is-dark" style={{ zIndex: 1 }}>
                 <section className="section app-background">
                     <div className="container transition">
-                        <Transition classNames="faq-transition"
-                            timeout={timeout}
-                            in={fade}>
-                            {pages[tab].component}
-                        </Transition>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Transition classNames="faq-transition"
+                                timeout={timeout}
+                                in={fade}>
+                                {pages[tab].component}
+                            </Transition>
+                        </Suspense>
                         {/* <transition name="faq-transition" mode="out-in">
                             <component is="pages[currentPage].component"></component>
                         </transition> */}

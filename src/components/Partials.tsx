@@ -1,5 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import "./Partials.scss";
 
 export function Footer() {
@@ -46,8 +48,8 @@ export function Header() {
                 <div className="navbar-end">
                     {/* //TODO: Add user buttons when auth is done */}
                     <div className="buttons">
-                        <a className="button button-color"><i className="fas fa-arrow-right-to-bracket" /><span style={{ marginLeft: 7 }}>Login</span></a>
-                        <a className="button button-color"><i className="fab fa-discord" /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
+                        <a className="button button-color"><FontAwesomeIcon icon={solid('arrow-right-to-bracket')} /><span style={{ marginLeft: 7 }}>Login</span></a>
+                        <a className="button button-color"><FontAwesomeIcon icon={brands('discord')} /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
                     </div>
                 </div>
             </div>

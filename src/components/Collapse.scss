@@ -1,0 +1,17 @@
+.slide {
+    transition: all 0.15s ease-out;
+    overflow: hidden;
+}
+.slide-open {
+    max-height: 100%;
+}
+.slide-close {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    * {
+        display: none;
+    }
+}
