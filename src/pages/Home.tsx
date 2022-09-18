@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, useState, Suspense } from "react";
+import React, { useEffect, lazy, useState } from "react";
 import { useTitle } from "../components/Title";
 import "./Home.scss";
 const FAQ = lazy(() => import("./FAQ"));
@@ -47,7 +47,7 @@ export default function Home() {
                                 <ul className="home-tabs">
                                     {pages.map((page, index) => (
                                         <li key={index} className={index === tab ? "is-active" : ""} onClick={() => { setTab(index); }}>
-                                            <a>{page.name}</a>
+                                            <a>{page.name}</a> {/* eslint-disable-line */}
                                         </li>
                                     ))}
                                 </ul>
@@ -64,13 +64,11 @@ export default function Home() {
             <div className="is-dark" style={{ zIndex: 1 }}>
                 <section className="section app-background">
                     <div className="container transition">
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <Transition classNames="faq-transition"
-                                timeout={timeout}
-                                in={fade}>
-                                {pages[tab].component}
-                            </Transition>
-                        </Suspense>
+                        <Transition classNames="faq-transition"
+                            timeout={timeout}
+                            in={fade}>
+                            {pages[tab].component}
+                        </Transition>
                         {/* <transition name="faq-transition" mode="out-in">
                             <component is="pages[currentPage].component"></component>
                         </transition> */}
