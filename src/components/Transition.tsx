@@ -17,7 +17,7 @@ export default function Transition(props: { children: React.ReactNode, in: boole
                 setShow(false);
             }, props.timeout);
         }
-    }, [props.in]);
+    }, [props.in]); // eslint-disable-line
 
     return (
         <div className={props.classNames + " " + (show ? `${props.in ? props.classNames + "-enter" : props.classNames + "-exit"}` : "")}>

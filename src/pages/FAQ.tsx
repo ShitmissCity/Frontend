@@ -52,11 +52,11 @@ export default function FAQ() {
                         setOpenStates(newStates);
                     }}>
                         <p className="card-header-title">{item.title}</p>
-                        <a className="card-header-icon" aria-label="more options">
+                        <span className="card-header-icon" aria-label="more options">
                             <span className="icon">
                                 <FontAwesomeIcon icon={openStates[index] ? solid("angle-down") : solid("angle-up")} />
                             </span>
-                        </a>
+                        </span>
                     </div>
                     <div className="card-content">
                         <div className="content" dangerouslySetInnerHTML={{ __html: item.text }}></div>
