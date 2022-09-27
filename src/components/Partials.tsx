@@ -6,7 +6,7 @@ import "./Partials.scss";
 
 export function Footer() {
     return (
-        <footer className="footer footer-color">
+        <footer className="footer footer-color" style={{ marginTop: "auto" }}>
             <div className="content has-text-centered">
                 <p className="theme-color">
                     Website built by the <b>Shitmiss Productions</b> Dev Team for Shitmiss City 202?.<br />

@@ -79,5 +79,6 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
-// Import Bulma and Buefy styles
+// Import Bulma styles
 @import "bulma";
+@import "@creativebulma/bulma-tooltip";
