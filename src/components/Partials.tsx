@@ -9,7 +9,7 @@ export function Footer() {
         <footer className="footer footer-color" style={{ marginTop: "auto" }}>
             <div className="content has-text-centered">
                 <p className="theme-color">
-                    Website built by the <b>Shitmiss Productions</b> Dev Team for Shitmiss City 202?.<br />
+                    Website built by the <b>Shitmiss Productions</b> Dev Team for Shitmiss City {process.env.REACT_APP_YEAR}.<br />
                     <img src="img/logo-alt.png" alt="Shitmiss City" style={{ marginTop: 25, borderRadius: 5, width: 256 }} />
                 </p>
             </div>
