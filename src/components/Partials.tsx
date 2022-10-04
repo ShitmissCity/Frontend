@@ -20,7 +20,7 @@ export function Footer() {
 export function Header() {
     const location = useLocation();
 
-    const loginUrl = "https://api.shitmiss.city/auth/login?callback=" + encodeURIComponent(window.location.origin) + "&env=" + process.env.REACT_APP_ENV;
+    const loginUrl = `${process.env.REACT_APP_REQUEST_URL}/auth/login?callback=${encodeURIComponent(process.env.REACT_APP_REQUEST_URL)}&env=${process.env.REACT_APP_ENV}`;
 
     const path = [
         { name: "Home", path: "/" },

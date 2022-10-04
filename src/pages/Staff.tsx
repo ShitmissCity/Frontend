@@ -4,16 +4,18 @@ import Loader from "../components/Loader";
 import { getUrl } from "../components/Request";
 import { useTitle } from "../components/Title";
 import Transition from "../components/Transition";
-import { User } from "../entity";
+import { User, Team } from "../entity";
 
 export default function Staff() {
     const [loading, setLoading] = React.useState(true);
     const [staff, setStaff] = React.useState<User[]>([]);
+    const [teams, setTeams] = React.useState<Team[]>([]);
     const { setTitle } = useTitle();
 
     useEffect(() => {
         setTitle("Staff");
         getUrl("/public/users/getstaff").then(res => res.json() as Promise<User[]>).then(setStaff).finally(() => setLoading(false));
+        getUrl("/public/teams/staffteams").then(res => res.json() as Promise<Team[]>).then(setTeams);
     }, [setTitle]);
 
     return (<div>
@@ -35,21 +37,60 @@ export default function Staff() {
                 <div className="level-item has-text-centered">
                     <div>
                         <p className="heading">Teams</p>
-                        <p className="title theme-color">0</p> {/*{ teams.filter(team => team.membersInTeam.length > 0).length }*/}
+                        <p className="title theme-color">{teams.length}</p>
                     </div>
                 </div>
                 <div className="level-item has-text-centered">
                     <div>
                         <p className="heading">Staff Memebers</p>
-                        <p className="title theme-color">0</p> {/*{ staffTotal } */}
+                        <p className="title theme-color">{staff.length}</p>
                     </div>
                 </div>
             </nav>
+            <h2 className="subtitle has-text-centered">Staff</h2>
             <Transition in={!loading} timeout={500} classNames="slide-transition">
                 {!loading && staff.length > 0 ? <div style={{ minHeight: 100 }} className="cards is-centered columns is-multiline">
                     {staff.map((user, index) => (
-                        <div key={index} className="card column is-3">
-
+                        <div key={index} className="card column is-3" style={{ marginRight: 14, marginBottom: 14 }}>
+                            <div className="card-content" style={{ padding: 0 }}>
+                                <div className="media">
+                                    <div className="media-left">
+                                        <figure className="image" style={{ width: 120 }}>
+                                            <img src={`https://cdn.discordapp.com/avatars/${user.discord_id}/${user.avatar_id}.webp`} alt="User image" />
+                                        </figure>
+                                    </div>
+                                    <div className="media-content">
+                                        <p className="title is-4">{user.username}</p>
+                                        <p className="subtitle is-6">{user.role.position}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div> : <div></div>}
+            </Transition>
+            <br />
+            <h2 className="subtitle has-text-centered">Teams</h2>
+            <Transition in={!loading} timeout={500} classNames="slide-transition">
+                {!loading && staff.length > 0 ? <div style={{ minHeight: 100 }} className="cards is-centered columns is-multiline">
+                    {teams.map((team, index) => (
+                        <div key={index} className="card column is-3" style={{ marginRight: 14, marginBottom: 14 }}>
+                            <div className="card-content" style={{ padding: 0 }}>
+                                <div className="media">
+                                    <div className="media-left" style={{ backgroundColor: team.color, width: 130 }}>
+                                        <figure className="image" style={{ width: 120 }}>
+                                            <img src={team.avatar_url} alt="Team image" />
+                                        </figure>
+                                    </div>
+                                    <div>
+                                    </div>
+                                    <div className="media-content">
+                                        <p className="title is-4">{team.name}</p>
+                                        <p className="subtitle is-6" style={{ margin: 0 }}>Users</p>
+                                        <p className="subtitle is-6">{team.members.map(t => t.username).join(", ")}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div> : <div></div>}

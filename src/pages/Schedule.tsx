@@ -8,12 +8,12 @@ export default function Schedule() {
                 The tournament is tied to the schedule below.
             </h2>
             <ul className="theme-color">
-                <li>The tournament will take place on two days, May 8th and May 9th 2021.</li>
-                <li>We will start at 17:00 UTC on both days.</li>
+                <li>The tournament will take place on two days, Sometime {process.env.REACT_APP_YEAR}.</li>
+                <li>We will start at some time on both days.</li>
                 <br />
                 <li><b>Deadlines</b></li>
-                <li>Signups will be open from the time the website is announced until May 1st 23:59 UTC.</li>
-                <li>Qualifiers will be from Announcement until May 3rd 18:00 UTC.</li>
+                <li>Signups will be open from the time the website is announced until unknown date.</li>
+                <li>Qualifiers will be from Announcement until some time and day.</li>
             </ul>
         </div>
     );

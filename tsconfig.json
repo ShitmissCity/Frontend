@@ -22,7 +22,7 @@
         "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
         "noEmit": false,
-        "useDefineForClassFields": true,
+        "useDefineForClassFields": true
     },
     "include": [
         "src",
