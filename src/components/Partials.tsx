@@ -20,7 +20,7 @@ export function Footer() {
 export function Header() {
     const location = useLocation();
 
-    const loginUrl = `${process.env.REACT_APP_REQUEST_URL}/auth/login?callback=${encodeURIComponent(process.env.REACT_APP_REQUEST_URL)}&env=${process.env.REACT_APP_ENV}`;
+    const loginUrl = `${process.env.REACT_APP_REQUEST_URL}/auth/login?callback=${encodeURIComponent(process.env.REACT_APP_REQUEST_URL + "/callback")}&env=${process.env.REACT_APP_ENV}`;
 
     const path = [
         { name: "Home", path: "/" },
