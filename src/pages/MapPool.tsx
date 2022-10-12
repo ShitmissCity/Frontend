@@ -6,7 +6,7 @@ import Transition from "../components/Transition";
 import BackgroundContainer from "../components/Background";
 import "./MapPool.scss";
 import { BeatSaverApi } from "../entity/BeatSaverApi";
-import { getUrl } from "../components/Request";
+import { useRequest } from "../components/Request";
 import { getMapTypeColor, getMapTypeString } from "../entity/MapPoolAndScores";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -18,6 +18,7 @@ export default function MapPoolRender() {
     const [currentShown, setCurrentShown] = React.useState(-1);
     const [svg, setSvg] = React.useState(null);
     const { setTitle } = useTitle();
+    const getUrl = useRequest().getUrl;
 
     useEffect(() => {
         setTitle("Map Pools");

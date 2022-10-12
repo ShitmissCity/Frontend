@@ -4,6 +4,7 @@ import "./App.scss";
 const Home = lazy(() => import("./pages/Home"));
 const MapPool = lazy(() => import("./pages/MapPool"));
 const Staff = lazy(() => import("./pages/Staff"));
+const Login = lazy(() => import("./pages/Login"));
 
 export default function App() {
     return (
@@ -11,6 +12,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/map-pools" element={<MapPool />} />
             <Route path="/staff" element={<Staff />} />
+            <Route path="/login" element={<Login />} />
         </Routes>
     );
 }

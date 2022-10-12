@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import BackgroundContainer from "../components/Background";
 import Loader from "../components/Loader";
-import { getUrl } from "../components/Request";
+import { useRequest } from "../components/Request";
 import { useTitle } from "../components/Title";
 import Transition from "../components/Transition";
 import { User, Team } from "../entity";
@@ -11,6 +11,7 @@ export default function Staff() {
     const [staff, setStaff] = React.useState<User[]>([]);
     const [teams, setTeams] = React.useState<Team[]>([]);
     const { setTitle } = useTitle();
+    const getUrl = useRequest().getUrl;
 
     useEffect(() => {
         setTitle("Staff");
