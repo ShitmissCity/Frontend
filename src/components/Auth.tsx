@@ -6,12 +6,14 @@ import { useCookie } from "./Cookie";
 const authContext = createContext<{
     login: () => void,
     logout: () => void,
-    isLoggedIn: () => boolean,
+    isLoggedIn: boolean,
+    user: User | undefined
     getUsername: () => string
 }>({
     login: () => { },
     logout: () => { },
-    isLoggedIn: () => { return false; },
+    isLoggedIn: false,
+    user: undefined,
     getUsername: () => { return ""; }
 });
 
@@ -25,13 +27,18 @@ export default function Auth(props: PropsWithChildren) {
     const cookie = useCookie();
 
     function login() {
-        console.log("login");
-        console.log(cookie.getCookie("accessToken"));
         request.getUrl("/authorized/user/me").then(response => {
             if (response.ok) {
                 response.json().then(user => {
                     setUser(user);
                 });
+            }
+            else {
+                let token = cookie.getCookie("refreshToken");
+                if (token)
+                    update(token);
+                else
+                    logout();
             }
         });
     }
@@ -39,10 +46,6 @@ export default function Auth(props: PropsWithChildren) {
     function logout() {
         cookie.deleteMultipleCookies(["accessToken", "refreshToken"]);
         setUser(null);
-    }
-
-    function isLoggedIn() {
-        return user != null;
     }
 
     function getUsername() {
@@ -90,7 +93,8 @@ export default function Auth(props: PropsWithChildren) {
         value: {
             login,
             logout,
-            isLoggedIn,
+            isLoggedIn: user != null,
+            user,
             getUsername
         },
         children: props.children

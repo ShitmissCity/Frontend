@@ -28,7 +28,9 @@ function Index() {
 
                                     <div className="video-background">
                                         <div className="video-foreground">
-                                            <iframe frameBorder={0} height="100%" width="100%" src="https://youtube.com/embed/EJ9N0PGcc2Q?controls=0&showinfo=0&rel=0&autoplay=1&mute=1&loop=1&playlist=EJ9N0PGcc2Q" title="background video" />
+                                            <video autoPlay={true} loop={true} style={{ width: "100%", height: "100%" }}>
+                                                <source src="img/background.webm" type="video/webm" />
+                                            </video>
                                         </div>
                                     </div>
                                 </Modal>
