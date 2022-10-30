@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useContext, useState, createElement, useEffect } from "react";
 import { User } from "../entity";
 import { useRequest } from "./Request";
-import { useCookie } from "./Cookie";
+import { deleteCookie, getCookie, setCookie } from "./Cookie";
 
 const authContext = createContext<{
     login: () => void,
@@ -24,7 +24,6 @@ export function useAuth() {
 export default function Auth(props: PropsWithChildren) {
     const [user, setUser] = useState<User>(null);
     const request = useRequest();
-    const cookie = useCookie();
 
     function login() {
         request.getUrl("/authorized/user/me").then(response => {
@@ -34,9 +33,9 @@ export default function Auth(props: PropsWithChildren) {
                 });
             }
             else {
-                let token = cookie.getCookie("refreshToken");
+                let token = getCookie("refreshToken");
                 if (token)
-                    update(token);
+                    update(token.value);
                 else
                     logout();
             }
@@ -44,7 +43,8 @@ export default function Auth(props: PropsWithChildren) {
     }
 
     function logout() {
-        cookie.deleteMultipleCookies(["accessToken", "refreshToken"]);
+        deleteCookie("refreshToken");
+        deleteCookie("accessToken");
         setUser(null);
     }
 
@@ -58,10 +58,10 @@ export default function Auth(props: PropsWithChildren) {
                 if (response.ok) {
                     response.json().then(data => {
                         request.setAuthorizationHeader("JWT " + data.accessToken);
-                        cookie.setMultipleCookies([
-                            { name: "accessToken", value: data.accessToken, ttl: 60 * 15 },
-                            { name: "refreshToken", value: data.refreshToken, ttl: 60 * 60 * 24 * 7 }
-                        ]);
+                        setCookie("accessToken", data.accessToken, 60 * 15);
+                        setCookie("refreshToken", data.refreshToken, 60 * 60 * 24 * 7);
+                        if (!user)
+                            login();
                     });
                 }
             });
@@ -69,23 +69,9 @@ export default function Auth(props: PropsWithChildren) {
     }
 
     useEffect(() => {
-        var initId = cookie.onCookieChange("init", (cookies) => {
-            if (user == null) {
-                update(cookies["refreshToken"]?.value);
-            }
-        })
-        var accessId = cookie.onCookieChange("accessToken", (value) => {
-            if (user != null && value) {
-                setTimeout(() => {
-                    login();
-                }, 200);
-            }
-        });
-
-        return () => {
-            cookie.removeListener("init", initId);
-            cookie.removeListener("accessToken", accessId);
-        }
+        let token = getCookie("refreshToken");
+        if (token)
+            update(token.value);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setUser]);
 

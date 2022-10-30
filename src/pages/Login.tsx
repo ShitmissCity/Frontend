@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useCookie } from "../components/Cookie";
+import { setCookie } from "../components/Cookie";
 import { useModal } from "../components/Modal";
 import { useRequest } from "../components/Request";
 import Loader from "../components/Loader";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router";
 export default function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [render, setRender] = useState<React.ReactNode>(<Loader />);
-    const cookie = useCookie();
     const request = useRequest();
     const redirect = useNavigate();
     const modal = useModal();
@@ -23,10 +22,8 @@ export default function Login() {
             if (response.ok) {
                 response.json().then((json: { accessToken: string, refreshToken: string }) => {
                     request.setAuthorizationHeader("JWT " + json.accessToken);
-                    cookie.setMultipleCookies([
-                        { name: "accessToken", value: json.accessToken, ttl: 60 * 60 },
-                        { name: "refreshToken", value: json.refreshToken, ttl: 60 * 60 * 24 * 7 }
-                    ]);
+                    setCookie("accessToken", json.accessToken, 60 * 15);
+                    setCookie("refreshToken", json.refreshToken, 60 * 60 * 24 * 7);
                     login();
                     redirect("/");
                 });

@@ -6,7 +6,6 @@ import { Footer, Header } from "./components/Partials";
 import Title from "./components/Title";
 import Loader from "./components/Loader";
 import Request from "./components/Request";
-import Cookie from "./components/Cookie";
 import Modal from "./components/Modal";
 import Auth from "./components/Auth";
 const App = lazy(() => import("./App"));
@@ -18,25 +17,23 @@ function Index() {
         <Suspense fallback={<Loader />}>
             <BrowserRouter basename={baseUrl}>
                 <Title>
-                    <Cookie>
-                        <Request>
-                            <Auth>
-                                <Modal>
-                                    <Header />
-                                    <App />
-                                    <Footer />
+                    <Request>
+                        <Auth>
+                            <Modal>
+                                <Header />
+                                <App />
+                                <Footer />
 
-                                    <div className="video-background">
-                                        <div className="video-foreground">
-                                            <video autoPlay={true} loop={true} style={{ width: "100%", height: "100%" }}>
-                                                <source src="img/background.webm" type="video/webm" />
-                                            </video>
-                                        </div>
+                                <div className="video-background">
+                                    <div className="video-foreground">
+                                        <video autoPlay={true} loop={true} style={{ width: "100%", height: "100%" }}>
+                                            <source src="img/background.webm" type="video/webm" />
+                                        </video>
                                     </div>
-                                </Modal>
-                            </Auth>
-                        </Request>
-                    </Cookie>
+                                </div>
+                            </Modal>
+                        </Auth>
+                    </Request>
                 </Title>
             </BrowserRouter>
         </Suspense>
