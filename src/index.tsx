@@ -26,7 +26,7 @@ function Index() {
 
                                 <div className="video-background">
                                     <div className="video-foreground">
-                                        <video autoPlay={true} loop={true} style={{ width: "100%", height: "100%" }}>
+                                        <video autoPlay={true} loop={true} playsInline={true} muted={true} style={{ width: "100%", height: "100%" }}>
                                             <source src="img/background.webm" type="video/webm" />
                                         </video>
                                     </div>
