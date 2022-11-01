@@ -21,6 +21,8 @@ export function useAuth() {
     return useContext(authContext);
 }
 
+let count = 1;
+
 export default function Auth(props: PropsWithChildren) {
     const [user, setUser] = useState<User>(null);
     const request = useRequest();
@@ -33,6 +35,11 @@ export default function Auth(props: PropsWithChildren) {
                 });
             }
             else {
+                if (count > 5) {
+                    logout();
+                    return;
+                }
+                count++;
                 let token = getCookie("refreshToken");
                 if (token)
                     update(token.value);
