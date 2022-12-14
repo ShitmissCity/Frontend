@@ -1,84 +1,60 @@
-// Import Bulma's core
-@import "bulma/sass/utilities/_all";
+@import "~bootstrap/scss/functions";
 
 // Set your colors
 $primary: #2a0063;
-$primary-light: findLightColor($primary);
-$primary-dark: findDarkColor($primary);
-$primary-invert: findColorInvert($primary);
 $twitter: #4099ff;
-$twitter-invert: findColorInvert($twitter);
-
-// Lists and maps
-$custom-colors: null !default;
-$custom-shades: null !default;
 
 $loading-background: #0000004f;
 
-// Setup $colors to use as bulma classes (e.g. 'is-twitter')
-$colors: mergeColorMaps(
-    (
-        "white": (
-            $white,
-            $black,
-        ),
-        "black": (
-            $black,
-            $white,
-        ),
-        "light": (
-            $light,
-            $light-invert,
-        ),
-        "dark": (
-            $dark,
-            $dark-invert,
-        ),
-        "primary": (
-            $primary,
-            $primary-invert,
-            $primary-light,
-            $primary-dark,
-        ),
-        "link": (
-            $link,
-            $link-invert,
-            $link-light,
-            $link-dark,
-        ),
-        "info": (
-            $info,
-            $info-invert,
-            $info-light,
-            $info-dark,
-        ),
-        "success": (
-            $success,
-            $success-invert,
-            $success-light,
-            $success-dark,
-        ),
-        "warning": (
-            $warning,
-            $warning-invert,
-            $warning-light,
-            $warning-dark,
-        ),
-        "danger": (
-            $danger,
-            $danger-invert,
-            $danger-light,
-            $danger-dark,
-        ),
-    ),
-    $custom-colors
-);
-
 // Links
 $link: $primary;
-$link-invert: $primary-invert;
+$link-invert: invert($primary);
 $link-focus-border: $primary;
 
-// Import Bulma styles
-@import "bulma";
-@import "@creativebulma/bulma-tooltip";
+@import "~bootstrap/scss/variables";
+
+$theme-colors: (
+    "primary": $primary,
+    "link": $link,
+    "info": $info,
+    "success": $success,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+);
+$modal-content-bg: $dark;
+$modal-content-color: $light;
+
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/utilities";
+
+$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+
+$utilities: map-merge(
+    $utilities,
+    (
+        "color":
+            map-merge(
+                map-get($utilities, "color"),
+                (
+                    values: map-merge(map-get(map-get($utilities, "color"), "values"), ($all-colors)),
+                )
+            ),
+    )
+);
+
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/helpers";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/utilities/api";

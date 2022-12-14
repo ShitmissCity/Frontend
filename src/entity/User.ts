@@ -16,7 +16,7 @@ export interface User {
 
 export interface Role {
     id: number;
-    permission: Permission;
+    permissions: Permission;
     position: string;
     user: User;
 }

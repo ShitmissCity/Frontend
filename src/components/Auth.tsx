@@ -7,7 +7,7 @@ const authContext = createContext<{
     login: () => void,
     logout: () => void,
     isLoggedIn: boolean,
-    user: User | undefined
+    user: User | undefined,
     getUsername: () => string
 }>({
     login: () => { },

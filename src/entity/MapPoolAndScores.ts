@@ -7,6 +7,7 @@ export interface MapPool {
     description: string;
     image_url: string;
     maps: Map[];
+    is_qualifier: boolean;
 }
 
 export interface Map {

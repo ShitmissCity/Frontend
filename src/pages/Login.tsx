@@ -31,34 +31,16 @@ export default function Login() {
             else {
                 if (response.status === 401) {
                     response.text().then((text: string) => {
-                        modal.openModal(
-                            <div className="box app-background">
-                                <h1 className="title">Login failed</h1>
-                                <p className="subtitle">{text}</p>
-                                <button className="button is-danger" onClick={modal.closeModal}>Dismiss</button>
-                            </div>
-                            , "/")
+                        modal.openModal("Login failed", text, "/");
                     });
                 }
                 else {
-                    modal.openModal(
-                        <div className="box app-background">
-                            <h1 className="title">Login failed</h1>
-                            <p className="subtitle">Please try again later.</p>
-                            <button className="button is-danger" onClick={modal.closeModal}>Dismiss</button>
-                        </div>
-                        , "/");
+                    modal.openModal("Login failed", "Please try again later.", "/");
                 }
             }
         }).catch(() => {
             setRender(<></>);
-            modal.openModal(
-                <div className="box app-background">
-                    <h1 className="title">Login failed</h1>
-                    <p className="subtitle">Please try again later.</p>
-                    <button className="button is-danger" onClick={modal.closeModal}>Dismiss</button>
-                </div>
-                , "/");
+            modal.openModal("Login failed", "Please try again later.", "/");
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setSearchParams]);
