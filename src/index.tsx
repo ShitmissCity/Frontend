@@ -1,9 +1,13 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter } from "react-router-dom";
+import { createRoot } from "react-dom/client";
 import "./index.scss";
 import { Footer, Header } from "./components/Partials";
 import Title from "./components/Title";
 import Loader from "./components/Loader";
+import Request from "./components/Request";
+import Modal from "./components/Modal";
+import Auth from "./components/Auth";
 const App = lazy(() => import("./App"));
 
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
@@ -13,15 +17,27 @@ function Index() {
         <Suspense fallback={<Loader />}>
             <BrowserRouter basename={baseUrl}>
                 <Title>
-                    <Header />
-                    <App />
-                    <Footer />
+                    <Request>
+                        <Auth>
+                            <Modal>
+                                <Header />
+                                <App />
+                                <Footer />
+
+                                <div className="video-background">
+                                    <div className="video-foreground">
+                                        <video autoPlay={true} loop={true} playsInline={true} muted={true} style={{ width: "100%", height: "100%" }}>
+                                            <source src="img/background.webm" type="video/webm" />
+                                        </video>
+                                    </div>
+                                </div>
+                            </Modal>
+                        </Auth>
+                    </Request>
                 </Title>
             </BrowserRouter>
         </Suspense>
     </React.StrictMode>;
 }
 
-import("react-dom").then(ReactDom => {
-    ReactDom.render(<Index />, document.getElementById("root"));
-})
+createRoot(document.getElementById("root")).render(<Index />);

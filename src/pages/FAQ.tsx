@@ -39,26 +39,26 @@ export default function FAQ() {
 
     return (
         <div>
-            <h1 className="title apply-font theme-color">Frequently Asked Questions</h1>
-            <h2 className="subtitle theme-color">
+            <h1 className="apply-font theme-color">Frequently Asked Questions</h1>
+            <h4 className="theme-color">
                 If you have any other questions that are not listed below, <a href="https://discord.gg/h58zp9f">join our Discord</a>.
-            </h2>
+            </h4>
 
             {collapses.map((item, index) => (
-                <Collapse key={index} className="card" animation="slide" open={openStates[index]}>
-                    <div className="card-header" onClick={() => {
+                <Collapse key={index} className="card mb-2 rounded" animation="slide" open={openStates[index]}>
+                    <div className="card-header d-flex pt-1" onClick={() => {
                         var newStates = [...openStates];
                         newStates[index] = !newStates[index];
                         setOpenStates(newStates);
                     }}>
-                        <p className="card-header-title">{item.title}</p>
-                        <span className="card-header-icon" aria-label="more options">
+                        <h6 className="card-header-title ms-2">{item.title}</h6>
+                        <span className="card-header-icon ms-auto me-3" aria-label="more options">
                             <span className="icon">
                                 <FontAwesomeIcon icon={openStates[index] ? solid("angle-down") : solid("angle-up")} />
                             </span>
                         </span>
                     </div>
-                    <div className="card-content">
+                    <div className="card-body p-2">
                         <div className="content" dangerouslySetInnerHTML={{ __html: item.text }}></div>
                     </div>
                 </Collapse>

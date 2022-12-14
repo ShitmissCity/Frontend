@@ -9,8 +9,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 1;
+    transition: all 0.15s ease-out;
     .loader {
         width: 100px;
         height: 100px;
+    }
+    &.hidden {
+        opacity: 0;
+        pointer-events: none;
     }
 }
