@@ -24,7 +24,9 @@ $theme-colors: (
     "dark": $dark,
 );
 $modal-content-bg: $dark;
-$modal-content-color: $light;
+$modal-content-bg: $dark;
+$link-shade-percentage: 50%;
+$link-hover-color: shift-color($light, $link-shade-percentage);
 
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
