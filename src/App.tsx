@@ -16,10 +16,10 @@ export default function App() {
     return (
         <Routes>
             <Route path="/teams" element={<Teams />} />
-            <Route path="/map-pools" element={<MapPool />} />
+            <Route path="/mappools" element={<MapPool />} />
             <Route path="/staff" element={<Staff />} />
             <Route path="/login" element={<Login />} />
-            {isLoggedIn && user.role != null && (user.role.permissions & Permission.Admin) == Permission.Admin && (<Route path="/admin" element={<Admin />} />)}
+            {isLoggedIn && user.role != null && (user.role.permissions & Permission.Admin) === Permission.Admin && (<Route path="/admin" element={<Admin />} />)}
             <Route path="*" element={<Home />} />
         </Routes>
     );

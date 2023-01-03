@@ -27,7 +27,7 @@ export default function MapPoolRender() {
     useEffect(() => {
         setTitle("Map Pools");
         fetch("img/scoresaber.svg").then(res => res.text()).then(setSvg);
-        getUrl("/public/map-pool").then(res => res.json() as Promise<MapPool[]>).then(res => {
+        getUrl("/public/mappool").then(res => res.json() as Promise<MapPool[]>).then(res => {
             let threads: { id: string, thread: Promise<BeatSaverApi> }[] = [];
             for (const mapPoolKey in res) {
                 if (Object.prototype.hasOwnProperty.call(res, mapPoolKey)) {

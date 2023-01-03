@@ -27,6 +27,8 @@ $modal-content-bg: $dark;
 $modal-content-bg: $dark;
 $link-shade-percentage: 50%;
 $link-hover-color: shift-color($light, $link-shade-percentage);
+$dropdown-color: $white;
+$dropdown-bg: $dark;
 
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
@@ -45,6 +47,83 @@ $utilities: map-merge(
                     values: map-merge(map-get(map-get($utilities, "color"), "values"), ($all-colors)),
                 )
             ),
+        // all rounded values are a "hack" to get all the values working until 5.3 is released
+        "rounded":
+            (
+                property: border-radius,
+                class: rounded,
+                values: (
+                    null: var(--#{$prefix}border-radius),
+                    0: 0,
+                    1: var(--#{$prefix}border-radius-sm),
+                    2: var(--#{$prefix}border-radius),
+                    3: var(--#{$prefix}border-radius-lg),
+                    4: var(--#{$prefix}border-radius-xl),
+                    5: var(--#{$prefix}border-radius-2xl),
+                    circle: 50%,
+                    pill: var(--#{$prefix}border-radius-pill),
+                ),
+            ),
+        "rounded-top": (
+            property: border-top-left-radius border-top-right-radius,
+            class: rounded-top,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
+        "rounded-end": (
+            property: border-top-right-radius border-bottom-right-radius,
+            class: rounded-end,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
+        "rounded-bottom": (
+            property: border-bottom-right-radius border-bottom-left-radius,
+            class: rounded-bottom,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
+        "rounded-start": (
+            property: border-bottom-left-radius border-top-left-radius,
+            class: rounded-start,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
     )
 );
 
@@ -52,6 +131,7 @@ $utilities: map-merge(
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/images";
 @import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/modal";
@@ -59,4 +139,6 @@ $utilities: map-merge(
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/utilities/api";

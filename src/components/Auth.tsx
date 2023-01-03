@@ -82,6 +82,15 @@ export default function Auth(props: PropsWithChildren) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setUser]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            let token = getCookie("refreshToken");
+            if (token)
+                update(token.value);
+        }, 14 * 60 * 1000 + 30 * 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     return createElement(authContext.Provider, {
         value: {
             login,

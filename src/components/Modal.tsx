@@ -1,8 +1,8 @@
-import React, { createContext, createElement, useContext, PropsWithChildren, useRef, useEffect } from "react";
+import React, { createContext, createElement, useContext, PropsWithChildren, useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router";
 
 const modalContext = createContext<{
-    openModal: (header: string, body: string, redirect?: string) => void,
+    openModal: (header: ReactNode, body: ReactNode, footer?: ReactNode, redirect?: string) => void,
     closeModal: () => void,
     setRedirect: (redirect: string) => void
 }>({
@@ -18,17 +18,29 @@ export function useModal() {
 export default function Modal(props: PropsWithChildren) {
     const [display, setDisplay] = React.useState<boolean>(false);
     const [show, setShow] = React.useState<boolean>(false);
-    const [body, setBody] = React.useState<string>(null);
-    const [header, setHeader] = React.useState<string>(null);
+    const [body, setBody] = React.useState<ReactNode>(null);
+    const [footer, setFooter] = React.useState<ReactNode>(null);
+    const [header, setHeader] = React.useState<ReactNode>(null);
     const [redirect, setRedirect] = React.useState<string>(null);
     const navigate = useNavigate();
 
-    function openModal(header: string, body: string, redirect?: string) {
-        setBody(body);
-        setHeader(header);
+    function openModal(header: ReactNode, body: ReactNode, footer?: ReactNode, redirect?: string) {
+        if (typeof (body) === "string")
+            setBody(<p>{body}</p>);
+        else
+            setBody(body);
+        if (typeof (header) === "string")
+            setHeader(<h3>{header}</h3>);
+        else
+            setHeader(header);
         if (redirect) {
             setRedirect(redirect);
         }
+        if (!footer) {
+            setFooter(<button className="btn btn-primary" onClick={closeModal}>Close</button>);
+        }
+        else
+            setFooter(footer);
         setShow(true);
     }
 
@@ -61,17 +73,13 @@ export default function Modal(props: PropsWithChildren) {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h3>
-                            {header}
-                        </h3>
+                        {header}
                     </div>
-                    <div className="modal-body">
-                        <p>
-                            {body}
-                        </p>
-                    </div>
+                    {!!body && <div className="modal-body">
+                        {body}
+                    </div>}
                     <div className="modal-footer">
-                        <button className="btn btn-primary" onClick={closeModal}>Close</button>
+                        {footer}
                     </div>
                 </div>
             </div>

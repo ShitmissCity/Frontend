@@ -7,6 +7,7 @@ export default function Transition(props: { children: React.ReactNode, in: boole
     var timeout: NodeJS.Timeout;
 
     React.useEffect(() => {
+        clearTimeout(timeout);
         if (props.in) {
             setPrevChildren(props.children);
             setShow(true);
@@ -25,6 +26,7 @@ export default function Transition(props: { children: React.ReactNode, in: boole
         if (props.doFade) {
             setPrevChildren(props.children);
             setShow(true);
+            clearTimeout(timeout);
             timeout = setTimeout(() => {
                 setShow(false);
             }, props.timeout);

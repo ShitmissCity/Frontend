@@ -24,7 +24,7 @@ export interface Score {
     id: number;
     score: number;
     map: Map;
-    user: User;
+    player: User;
 }
 
 /**
@@ -43,6 +43,40 @@ export enum MapType {
     Hard = 256,
     Expert = 512,
     ExpertPlus = 1024
+}
+
+export function getMapTypeFromCharaString(v: string): MapType {
+    switch (v) {
+        case "OneSaber":
+            return MapType.OneSaber;
+        case "NoArrows":
+            return MapType.NoArrows;
+        case "Degree90":
+            return MapType.Degree90;
+        case "Degree360":
+            return MapType.Degree360;
+        case "Lightshow":
+            return MapType.Lightshow;
+        case "Lawless":
+            return MapType.Lawless;
+    }
+    return 0;
+}
+
+export function getMapTypeFromDifString(v: string): MapType {
+    switch (v) {
+        case "Easy":
+            return MapType.Easy;
+        case "Normal":
+            return MapType.Normal;
+        case "Hard":
+            return MapType.Hard;
+        case "Expert":
+            return MapType.Expert;
+        case "ExpertPlus":
+            return MapType.ExpertPlus;
+    }
+    return 0;
 }
 
 export function getMapTypeString(mapType: MapType): string {

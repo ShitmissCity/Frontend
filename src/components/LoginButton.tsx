@@ -16,9 +16,9 @@ export default function LoginButton() {
     const loginUrl = `${process.env.REACT_APP_REQUEST_URL}/auth/login?callback=${encodeURIComponent(process.env.REACT_APP_REQUEST_URL + "/callback")}&env=${process.env.REACT_APP_ENV}`;
     if (isLoggedIn)
         return (
-            <a className="btn btn-dark" onClick={() => logout()}>
+            <button className="btn btn-dark" onClick={() => logout()}>
                 <FontAwesomeIcon icon={solid('sign-out-alt')} />
-            </a>
+            </button>
         );
     else
         return (

@@ -68,3 +68,11 @@
     transform: translateX(-5px);
     opacity: 0;
 }
+.icon {
+    * {
+        transition: all 0.3s ease;
+    }
+    .icon-flipped {
+        transform: scaleY(-1);
+    }
+}
