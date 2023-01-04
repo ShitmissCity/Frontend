@@ -56,3 +56,9 @@ export enum Permission {
     Admin = 8,
     Owner = 16,
 }
+
+export namespace Permission {
+    export function isRole(role: Permission, permission: Permission): boolean {
+        return (role & permission) == permission || (role & Permission.Owner) == Permission.Owner || (role & Permission.Admin) == Permission.Admin;
+    }
+}
