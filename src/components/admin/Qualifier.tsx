@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { MapPool, Map, User } from "../../entity";
+import { MapPool, User } from "../../entity";
 import { BeatSaverApi } from "../../entity/BeatSaverApi";
 import { getMapTypeString, Score } from "../../entity/MapPoolAndScores";
 import Dropdown from "../Dropdown";
@@ -56,7 +56,7 @@ export default function Qualifier() {
     async function setQualifierPool(id: number) {
         if (pools.find(p => p.is_qualifier))
             await getUrl(`/authorized/mappool/${pools.find(p => p.is_qualifier).id}/setqualifier`, { method: "POST", body: JSON.stringify({ is_qualifier: false }), headers: { "Content-Type": "application/json" } });
-        if (id != 0) {
+        if (id !== 0) {
             const res = await getUrl(`/authorized/mappool/${id}/setqualifier`, { method: "POST", body: JSON.stringify({ is_qualifier: true }), headers: { "Content-Type": "application/json" } });
             if (res.ok) {
                 setQualifier(id);
@@ -69,7 +69,7 @@ export default function Qualifier() {
     }
 
     function getBeatsaver(song_id: string) {
-        return beatsaver.find(b => b.id == song_id);
+        return beatsaver.find(b => b.id === song_id);
     }
 
     function formatSeconds(seconds: number) {
