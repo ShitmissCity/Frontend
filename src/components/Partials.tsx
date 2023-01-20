@@ -37,7 +37,8 @@ export function Header() {
         { name: "Qualifiers", path: "/qualifiers" },
         { name: "Bracket", path: "/bracket" },
         { name: "Staff", path: "/staff" },
-        { name: "Admin", path: "/admin", hidden: true },
+        { name: "Settings", path: "/settings", hidden: true },
+        { name: "Admin", path: "/admin", hidden: true, permissions: [Permission.Admin] },
     ];
 
     const updateButtons = useCallback(() => {
@@ -50,7 +51,7 @@ export function Header() {
                     </Link>
                 </li>)
             }
-            if (isLoggedIn && user.role != null && (user.role.permissions & Permission.Admin) === Permission.Admin && item.hidden) {
+            if (isLoggedIn && user.role != null && (item.permissions === undefined || item.permissions.every(perm => Permission.isRole(user.role.permissions, perm))) && item.hidden) {
                 return (<li className="nav-item" key={index}>
                     <Link className={`nav-link ${location.pathname === item.path ? "active" : ""}`} to={item.path} style={{ paddingTop: 21.5, paddingBottom: 21.5 }}>
                         {item.name}
@@ -65,28 +66,30 @@ export function Header() {
     }, [isLoggedIn, location]);
 
     return (
-        <nav className="header animated navbar navbar-expand-xl is-primary p-0 navbar-dark">
-            <div className="navbar-brand">
-                <Link to="/" style={{ fontSize: 20, borderRadius: "4px 0 0 4px", padding: "0 0.5rem" }}>
-                    <img src="img/logo-white.png" alt="Shitmiss City" style={{ marginRight: 10, borderRadius: 5, width: "6rem", maxHeight: "100%", maxWidth: "100%" }} />
-                </Link>
-            </div>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="navbar-collapse collapse me-auto" id="navbarCollapse">
-                <ul className="navbar-nav">
-                    {buttons}
-                </ul>
-                <ul className="navbar-nav ms-auto me-2">
-                    {/* //TODO: Add user buttons when auth is done */}
-                    <li className="navbar-item me-2">
-                        <LoginButton />
-                    </li>
-                    <li className="navbar-item">
-                        <a className="btn btn-dark" href="https://discord.gg/h58zp9f" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={brands('discord')} /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
-                    </li>
-                </ul>
+        <nav className="header navbar is-primary p-0 d-block">
+            <div className="animated navbar navbar-expand-xl p-0 navbar-dark">
+                <div className="navbar-brand">
+                    <Link to="/" style={{ fontSize: 20, borderRadius: "4px 0 0 4px", padding: "0 0.5rem" }}>
+                        <img src="img/logo-white.png" alt="Shitmiss City" style={{ marginRight: 10, borderRadius: 5, width: "6rem", maxHeight: "100%", maxWidth: "100%" }} />
+                    </Link>
+                </div>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="navbar-collapse collapse me-auto" id="navbarCollapse">
+                    <ul className="navbar-nav">
+                        {buttons}
+                    </ul>
+                    <ul className="navbar-nav ms-auto me-2">
+                        {/* //TODO: Add user buttons when auth is done */}
+                        <li className="navbar-item me-2">
+                            <LoginButton />
+                        </li>
+                        <li className="navbar-item">
+                            <a className="btn btn-dark" href="https://discord.gg/h58zp9f" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={brands('discord')} /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     )
