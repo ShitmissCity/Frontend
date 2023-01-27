@@ -9,10 +9,24 @@ import Request from "./components/Request";
 import Modal from "./components/Modal";
 import Auth from "./components/Auth";
 const App = lazy(() => import("./App"));
+const ReactHlsPlayer = lazy(() => import("react-hls-player"));
 
 const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 
 function Index() {
+    const playerRef = React.useRef<HTMLVideoElement>();
+
+    function play() {
+        if (playerRef.current) {
+            playerRef.current.play();
+            document.getElementById("root").removeEventListener("click", play);
+        }
+    }
+
+    React.useEffect(() => {
+        document.getElementById("root").addEventListener("click", play);
+    })
+
     return <React.StrictMode>
         <Suspense fallback={<Loader />}>
             <BrowserRouter basename={baseUrl}>
@@ -26,9 +40,17 @@ function Index() {
 
                                 <div className="video-background">
                                     <div className="video-foreground">
-                                        <video autoPlay={true} loop={true} playsInline={true} muted={true} style={{ width: "100%", height: "100%" }}>
-                                            <source src="img/background.webm" type="video/webm" />
-                                        </video>
+                                        <ReactHlsPlayer
+                                            playerRef={playerRef}
+                                            src="img/background.m3u8"
+                                            controls={false}
+                                            width="100%"
+                                            height="100%"
+                                            loop={true}
+                                            muted={true}
+                                            playsInline={true}
+                                            autoPlay={true}
+                                        />
                                     </div>
                                 </div>
                             </Modal>
