@@ -25,6 +25,7 @@ $theme-colors: (
 );
 $modal-content-bg: $dark;
 $modal-content-bg: $dark;
+$tooltip-bg: $primary;
 $link-shade-percentage: 50%;
 $link-hover-color: shift-color($light, $link-shade-percentage);
 $dropdown-color: $white;
@@ -136,6 +137,7 @@ $utilities: map-merge(
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/tooltip";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/badge";

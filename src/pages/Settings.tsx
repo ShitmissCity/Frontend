@@ -7,9 +7,10 @@ import { useTitle } from "../components/Title";
 export default function Settings() {
     const [twitchName, setTwitchName] = useState("");
     const [scoresaberId, setScoresaberId] = useState("");
-    const { user } = useAuth();
+    const { user, login } = useAuth();
     const { setTitle } = useTitle();
     const getUrl = useRequest().getUrl;
+    const [sent, setSent] = useState(false);
 
     useEffect(() => {
         setTitle("Settings");
@@ -26,12 +27,14 @@ export default function Settings() {
         navigator.clipboard.writeText(user.discord_id);
     }
 
-    function saveSettings(form: React.FormEvent<HTMLFormElement>) {
+    async function saveSettings(form: React.FormEvent<HTMLFormElement>) {
         form.preventDefault();
         const formElements = form.currentTarget.elements as any;
         const twitchName = formElements.twitchName.value;
         const scoresaberId = formElements.scoresaberId.value;
-        getUrl("/authorized/user/update", { method: "POST", body: JSON.stringify({ twitch_name: twitchName, scoresaber_id: scoresaberId }), headers: { "Content-Type": "application/json" } });
+        await getUrl("/authorized/user/update", { method: "POST", body: JSON.stringify({ twitch_name: twitchName, scoresaber_id: scoresaberId }), headers: { "Content-Type": "application/json" } });
+        login();
+        setSent(true);
     }
 
     function onInputChange(input: React.ChangeEvent<HTMLInputElement>) {
@@ -45,6 +48,10 @@ export default function Settings() {
             }
             setScoresaberId(value);
         }
+    }
+
+    function formChanged() {
+        setSent(false);
     }
 
     return (
@@ -62,7 +69,7 @@ export default function Settings() {
                 <div className="container-fluid transition theme-color">
                     <div className="col-3">
                         <h1>User Settings</h1>
-                        <form onSubmit={saveSettings}>
+                        <form onSubmit={saveSettings} onChange={formChanged}>
                             <div className="form-group">
                                 <label htmlFor="username">Username</label>
                                 <input type="text" className="form-control" id="username" placeholder="Username" disabled value={user.username} />
@@ -82,7 +89,8 @@ export default function Settings() {
                                 <label htmlFor="scoresaberId">ScoreSaber ID</label>
                                 <input type="text" className="form-control" id="scoresaberId" placeholder="Twitch ID" value={scoresaberId} onChange={onInputChange} />
                             </div>
-                            <button type="submit" className="btn btn-primary mt-2">Save</button>
+                            {!sent && <button type="submit" className="btn btn-primary mt-2">Save</button>}
+                            {sent && <button type="submit" className="btn btn-success mt-2" disabled>Saved</button>}
                         </form>
                     </div>
                 </div>

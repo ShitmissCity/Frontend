@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { brands, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import LoginButton from "./LoginButton";
 import "./Partials.scss";
 import { useAuth } from "./Auth";
-import { Permission } from "../entity/User";
+import { Permission, User } from "../entity/User";
+import Tooltip from "./Tooltip";
 
 export function Footer() {
     return (
@@ -37,7 +38,18 @@ export function Header() {
         { name: "Qualifiers", path: "/qualifiers" },
         { name: "Bracket", path: "/bracket" },
         { name: "Staff", path: "/staff" },
-        { name: "Settings", path: "/settings", hidden: true },
+        {
+            name: "Settings", path: "/settings", hidden: true, warn: (u: User) => {
+                if (u.scoresaber_id === null || u.twitch_name === null)
+                    return (<FontAwesomeIcon icon={solid("warning")} />)
+                return null;
+            },
+            tooltip: () => {
+                if (user.scoresaber_id === null || user.twitch_name === null)
+                    return "Missing ScoreSaber ID or Twitch Name";
+                return null;
+            }
+        },
         { name: "Admin", path: "/admin", hidden: true, permissions: [Permission.Admin] },
     ];
 
@@ -46,16 +58,20 @@ export function Header() {
         setButtons(path.map((item, index) => {
             if (!item.hidden) {
                 return (<li className="nav-item" key={index}>
-                    <Link className={`nav-link ${location.pathname === item.path ? "active" : ""}`} to={item.path} style={{ paddingTop: 21.5, paddingBottom: 21.5 }}>
-                        {item.name}
-                    </Link>
+                    <Tooltip text={item.tooltip && item.tooltip() || ""}>
+                        <Link className={`nav-link ${location.pathname === item.path ? "active" : ""}`} to={item.path} style={{ paddingTop: 21.5, paddingBottom: 21.5 }}>
+                            {item.name} {item.warn && item.warn(user)}
+                        </Link>
+                    </Tooltip>
                 </li>)
             }
             if (isLoggedIn && user.role != null && (item.permissions === undefined || item.permissions.every(perm => Permission.isRole(user.role.permissions, perm))) && item.hidden) {
                 return (<li className="nav-item" key={index}>
-                    <Link className={`nav-link ${location.pathname === item.path ? "active" : ""}`} to={item.path} style={{ paddingTop: 21.5, paddingBottom: 21.5 }}>
-                        {item.name}
-                    </Link>
+                    <Tooltip text={item.tooltip && item.tooltip() || ""}>
+                        <Link className={`nav-link ${location.pathname === item.path ? "active" : ""}`} to={item.path} style={{ paddingTop: 21.5, paddingBottom: 21.5 }}>
+                            {item.name} {item.warn && item.warn(user)}
+                        </Link>
+                    </Tooltip>
                 </li>)
             }
         }));
