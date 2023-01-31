@@ -65,7 +65,7 @@ export function Header() {
                     </Tooltip>
                 </li>)
             }
-            if (isLoggedIn && user.role != null && (item.permissions === undefined || item.permissions.every(perm => Permission.isRole(user.role.permissions, perm))) && item.hidden) {
+            if (isLoggedIn && item.hidden && (item.permissions === undefined || (user.role != null && item.permissions.every(perm => Permission.isRole(user.role.permissions, perm))))) {
                 return (<li className="nav-item" key={index}>
                     <Tooltip text={item.tooltip && item.tooltip() || ""}>
                         <Link className={`nav-link ${location.pathname === item.path ? "active" : ""}`} to={item.path} style={{ paddingTop: 21.5, paddingBottom: 21.5 }}>
