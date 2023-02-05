@@ -8,6 +8,7 @@ import Loader from "./components/Loader";
 import Request from "./components/Request";
 import Modal from "./components/Modal";
 import Auth from "./components/Auth";
+import Toast from "./components/Toast";
 const App = lazy(() => import("./App"));
 const ReactHlsPlayer = lazy(() => import("react-hls-player"));
 
@@ -31,31 +32,33 @@ function Index() {
         <Suspense fallback={<Loader />}>
             <BrowserRouter basename={baseUrl}>
                 <Title>
-                    <Request>
-                        <Auth>
-                            <Modal>
-                                <Header />
-                                <App />
-                                <Footer />
+                    <Toast>
+                        <Request>
+                            <Auth>
+                                <Modal>
+                                    <Header />
+                                    <App />
+                                    <Footer />
 
-                                <div className="video-background">
-                                    <div className="video-foreground">
-                                        <ReactHlsPlayer
-                                            playerRef={playerRef}
-                                            src="img/background.m3u8"
-                                            controls={false}
-                                            width="100%"
-                                            height="100%"
-                                            loop={true}
-                                            muted={true}
-                                            playsInline={true}
-                                            autoPlay={true}
-                                        />
+                                    <div className="video-background">
+                                        <div className="video-foreground">
+                                            <ReactHlsPlayer
+                                                playerRef={playerRef}
+                                                src="img/background.m3u8"
+                                                controls={false}
+                                                width="100%"
+                                                height="100%"
+                                                loop={true}
+                                                muted={true}
+                                                playsInline={true}
+                                                autoPlay={true}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </Modal>
-                        </Auth>
-                    </Request>
+                                </Modal>
+                            </Auth>
+                        </Request>
+                    </Toast>
                 </Title>
             </BrowserRouter>
         </Suspense>

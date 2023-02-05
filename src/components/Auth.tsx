@@ -2,6 +2,7 @@ import { createContext, PropsWithChildren, useContext, useState, createElement, 
 import { User } from "../entity";
 import { useRequest } from "./Request";
 import { deleteCookie, getCookie, setCookie } from "./Cookie";
+import { ToastType, useToast } from "./Toast";
 
 const authContext = createContext<{
     login: () => void,
@@ -26,17 +27,19 @@ let count = 1;
 export default function Auth(props: PropsWithChildren) {
     const [user, setUser] = useState<User>(null);
     const request = useRequest();
+    const { showToast: show } = useToast();
 
     function login() {
         request.getUrl("/authorized/user/me").then(response => {
             if (response.ok) {
-                response.json().then(user => {
+                response.json().then((user: User) => {
+                    show("Logged in as " + user.username, "Auth");
                     setUser(user);
                 });
             }
             else {
                 if (count > 5) {
-                    logout();
+                    logout(true);
                     return;
                 }
                 count++;
@@ -44,14 +47,19 @@ export default function Auth(props: PropsWithChildren) {
                 if (token)
                     update(token.value);
                 else
-                    logout();
+                    logout(true);
             }
         });
     }
 
-    function logout() {
+    function logout(internal = false) {
+        if (internal)
+            show("Logged out", "Auth");
+        else
+            show("Logged out due to internal errors", "Auth");
         deleteCookie("refreshToken");
         deleteCookie("accessToken");
+        request.setAuthorizationHeader(undefined);
         setUser(null);
     }
 

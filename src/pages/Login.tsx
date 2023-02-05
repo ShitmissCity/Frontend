@@ -31,16 +31,16 @@ export default function Login() {
             else {
                 if (response.status === 401) {
                     response.text().then((text: string) => {
-                        modal.openModal("Login failed", text, "/");
+                        modal.openModal("Login failed", text, undefined, "/");
                     });
                 }
                 else {
-                    modal.openModal("Login failed", "Please try again later.", "/");
+                    modal.openModal("Login failed", "Please try again later.", undefined, "/");
                 }
             }
         }).catch(() => {
             setRender(<></>);
-            modal.openModal("Login failed", "Please try again later.", "/");
+            modal.openModal("Login failed", "Please try again later.", undefined, "/");
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setSearchParams]);

@@ -24,7 +24,15 @@ $theme-colors: (
     "dark": $dark,
 );
 $modal-content-bg: $dark;
-$modal-content-bg: $dark;
+$modal-content-color: $white;
+$toast-color: $white;
+$toast-background-color: rgba($dark, 0.85);
+$toast-header-color: $gray-400;
+$toast-header-background-color: rgba(0, 0, 0, 0.25);
+$toast-header-border-color: rgba($white, 0.05);
+$toast-border-color: rgba($white, 0.15);
+$text-muted: rgba($white, 0.65);
+$toast-font-size: 0.925rem;
 $tooltip-bg: $primary;
 $link-shade-percentage: 50%;
 $link-hover-color: shift-color($light, $link-shade-percentage);
@@ -130,8 +138,10 @@ $utilities: map-merge(
 
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
+@import "~bootstrap/scss/toasts";
 @import "~bootstrap/scss/images";
 @import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/close";
 @import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/helpers";

@@ -1,5 +1,6 @@
 import { createContext, createElement, PropsWithChildren, useContext } from "react";
 import { merge } from "lodash";
+import { ToastType, useToast } from "./Toast";
 
 const requestContext = createContext<{
     getUrl(url_segment: string, init?: RequestInit): Promise<Response>,
@@ -16,11 +17,20 @@ export function useRequest() {
 }
 
 export default function Request(params: PropsWithChildren) {
+    const { showToast } = useToast();
 
-    function getUrl(url_segment: string, init: RequestInit = { method: "GET" }): Promise<Response> {
+    async function getUrl(url_segment: string, init: RequestInit = { method: "GET" }): Promise<Response> {
         var url = process.env.REACT_APP_REQUEST_URL + url_segment;
 
-        return fetch(url, merge(init, { headers: { Authorization: authorizationHeader } }));
+        try {
+            var resp = await fetch(url, merge(init, { headers: { Authorization: authorizationHeader } }));
+        }
+        catch (e) {
+            showToast("An error occured during a request.", "Request", ToastType.Error);
+            throw e;
+        }
+
+        return resp;
     }
 
     return createElement(requestContext.Provider, {
