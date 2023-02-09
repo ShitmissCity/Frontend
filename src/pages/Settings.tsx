@@ -11,15 +11,15 @@ export default function Settings() {
     const [twitchName, setTwitchName] = useState("");
     const [scoresaberId, setScoresaberId] = useState("");
     const { user, login } = useAuth();
-    const [teamName, setTeamName] = useState(user.team && user.team.name || "");
-    const [teamColor, setTeamColor] = useState(user.team && HexToRGB(user.team.color) || 0);
-    const [teamImg, setTeamImg] = useState(user.team && user.team.avatar_url || "/img/icon-256.png");
+    const [teamName, setTeamName] = useState((user.team && user.team.name) || "");
+    const [teamColor, setTeamColor] = useState((user.team && HexToRGB(user.team.color)) || 0);
+    const [teamImg, setTeamImg] = useState((user.team && user.team.avatar_url) || "/img/icon-256.png");
     const { setTitle } = useTitle();
     const { showToast } = useToast();
     const getUrl = useRequest().getUrl;
     const [sent, setSent] = useState(true);
     const [teamSent, setTeamSent] = useState(true);
-    const [teamMembers, setTeamMembers] = useState(user.team && user.team.members || []);
+    const [teamMembers, setTeamMembers] = useState((user.team && user.team.members) || []);
     const [invite, setInvite] = useState("");
     const [inviteSent, setInviteSent] = useState(true);
 
@@ -334,7 +334,7 @@ export default function Settings() {
                             <form onChange={inviteFormChanged} onSubmit={sendInvite}>
                                 <div className="form-group">
                                     <label htmlFor="inviteCode">Invite ScoreSaber Id</label>
-                                    <input type="text" className="form-control" id="inviteCode" placeholder={(user.id != user.team.leader.id ? "Only team leader can invite." : "Invite ScoreSaber Id")} value={invite} onChange={onInputChange} disabled={user.id !== user.team.leader.id} />
+                                    <input type="text" className="form-control" id="inviteCode" placeholder={(user.id !== user.team.leader.id ? "Only team leader can invite." : "Invite ScoreSaber Id")} value={invite} onChange={onInputChange} disabled={user.id !== user.team.leader.id} />
                                 </div>
                                 {!inviteSent && <button type="submit" className="btn btn-primary mt-2">Invite</button>}
                                 {inviteSent && user.id === user.team.leader.id && <button type="submit" className="btn btn-primary mt-2" disabled>Invited</button>}

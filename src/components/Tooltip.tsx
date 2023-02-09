@@ -1,5 +1,5 @@
 import { Tooltip as BsTooltip } from 'bootstrap';
-import React, { useEffect, useRef, cloneElement, ReactElement } from 'react';
+import { useEffect, useRef, cloneElement, ReactElement } from 'react';
 
 export default function Tooltip(props: { text: string, children: ReactElement }) {
     const childRef = useRef<Element>();
