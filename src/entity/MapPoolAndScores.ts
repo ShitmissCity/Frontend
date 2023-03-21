@@ -145,7 +145,7 @@ export function getMapTypeColor(mapType: MapType): string {
 }
 
 export function getScorePercentage(score: Score, map: Map): number {
-    return Math.round(score.score / map.beatsaver.versions.find(t => t.hash == map.hash).diffs.find(t => t.characteristic == getCharaStringFromMapType(map.type) && t.difficulty == getDifStringFromMapType(map.type)).maxScore * 10000) / 100;
+    return Math.round(score.score / map.beatsaver.versions.find(t => t.hash === map.hash).diffs.find(t => t.characteristic === getCharaStringFromMapType(map.type) && t.difficulty === getDifStringFromMapType(map.type)).maxScore * 10000) / 100;
 }
 
 export function getScorePercentageRelative(score: Score, scores: Score[]): number {
@@ -159,7 +159,7 @@ export function getTeamScores(map: Map): Score[] {
         let teamScore = 0;
         let teamScoreCount = 0;
         for (let score of map.scores) {
-            if (score.player.team == team && teamScoreCount < 2) {
+            if (score.player.team === team && teamScoreCount < 2) {
                 teamScore += score.score;
                 teamScoreCount++;
             }

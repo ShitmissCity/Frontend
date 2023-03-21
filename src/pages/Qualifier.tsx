@@ -3,12 +3,11 @@ import BackgroundContainer from "../components/Background";
 import Loader from "../components/Loader";
 import { useRequest } from "../components/Request";
 import SongInfo from "../components/SongInfo";
-import TeamCard from "../components/TeamCard";
 import { useTitle } from "../components/Title";
 import Transition from "../components/Transition";
 import { MapPool, Map } from "../entity";
 import { BeatSaverApi } from "../entity/BeatSaverApi";
-import { getCharaStringFromMapType, getMapTypeFromCharaString, getScorePercentage, getScorePercentageRelative, getTeamScores } from "../entity/MapPoolAndScores";
+import { getScorePercentage, getScorePercentageRelative, getTeamScores } from "../entity/MapPoolAndScores";
 import "./Qualifier.scss";
 
 type res = (value: Response) => void;
