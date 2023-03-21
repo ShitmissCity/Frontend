@@ -10,6 +10,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Teams = lazy(() => import("./pages/Teams"));
 const Admin = lazy(() => import("./pages/Admin"));
 const Settings = lazy(() => import("./pages/Settings"));
+const Qualifier = lazy(() => import("./pages/Qualifier"));
 
 export default function App() {
     const { isLoggedIn, user } = useAuth();
@@ -20,6 +21,7 @@ export default function App() {
             <Route path="/mappools" element={<MapPool />} />
             <Route path="/staff" element={<Staff />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/qualifiers" element={<Qualifier />} />
             {isLoggedIn && user.role != null && Permission.isRole(user.role.permissions, Permission.MapPooler) && (<Route path="/admin" element={<Admin />} />)}
             {isLoggedIn && (<Route path="/settings" element={<Settings />} />)}
             <Route path="*" element={<Home />} />

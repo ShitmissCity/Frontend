@@ -1,0 +1,9 @@
+th,
+td {
+    &:not(th) {
+        border-top: 1px solid #ddd;
+    }
+    &:not(:last-child) {
+        border-right: 1px solid #999999;
+    }
+}

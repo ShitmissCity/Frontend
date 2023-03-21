@@ -148,7 +148,8 @@ export default function MapPoolElement() {
         }
     }, [currentSongAdd]);
 
-    function closeAndClear() {
+    function closeAndClear(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        event.preventDefault();
         closeModal();
         setCurrentSongAdd({ id: -1, map: null, hash: null });
     }
@@ -168,12 +169,13 @@ export default function MapPoolElement() {
         }
     }
 
-    async function putSongToPool() {
+    async function putSongToPool(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        event.preventDefault();
         let form = formRef.current as HTMLFormElement;
         let map = currentSongAdd.map;
         let pool = currentSongAdd.id;
         let hash = map.versions[0].hash;
-        let tmpScoresaber = `https://scoresaber.com/api/leaderboard/by-hash/${hash}/info?difficulty=`;
+        let tmpScoresaber = `https://short.wildwolf.dev/api/leaderboard/by-hash/${hash}/info?difficulty=`;
         let body = { id: map.id, hash, type: 0, scoresaberId: 0 };
         if (map.versions[0].diffs.length === 1) {
             let mapType = getMapTypeFromDifString(map.versions[0].diffs[0].difficulty);
@@ -215,7 +217,8 @@ export default function MapPoolElement() {
         return null;
     }
 
-    async function createMapPoolRequest() {
+    async function createMapPoolRequest(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        event.preventDefault();
         let form = formRef.current as HTMLFormElement;
         let name = (form.name as any).value;
         let description = form.description.value;
@@ -249,7 +252,7 @@ export default function MapPoolElement() {
                     <label htmlFor="description" className="form-label">Pool description</label>
                 </div>
                 <div className="mb-3 form-floating">
-                    <input type="text" className="form-control" id="image_url" placeholder="image" autoComplete="fuck-off-autofill" />
+                    <input type="text" className="form-control" id="image_url" placeholder="image" autoComplete="fuck-off-autofill" value="/img/icon-256.png" />
                     <label htmlFor="image_url" className="form-label">Pool image</label>
                 </div>
             </form>,
@@ -313,7 +316,11 @@ export default function MapPoolElement() {
                             <div className="d-flex justify-content-center mt-3">
                                 <div className="col-xxl-5 col-xl-6 col-lg-7 col-md-9 col-12">
                                     <div className="input-group">
-                                        <input type="text" className="form-control text-center" placeholder="ID or Hash" onBlur={(e) => addSongToPool(pool.id, e.target)} />
+                                        <input type="text" className="form-control text-center" placeholder="ID or Hash" onKeyDown={(e) => {
+                                            if (e.key === "Enter") {
+                                                addSongToPool(pool.id, e.target as HTMLInputElement);
+                                            }
+                                        }} onBlur={(e) => addSongToPool(pool.id, e.target)} />
                                     </div>
                                 </div>
                             </div>
