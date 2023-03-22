@@ -12,7 +12,7 @@ export default function SongInfo(params: { map: Map, index?: React.Key, fullStyl
     return (
         <div className="card rounded" key={params.index} style={{ background: `linear-gradient(to left, rgba(36, 36, 36, 0.93), rgb(33, 33, 33)) repeat scroll 0% 0%, rgba(0, 0, 0, 0) url(${map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL})`, backgroundSize: "cover" }}>
             <div className="row g-0">
-                {params.fullStyle && <div className="col-sm-3">
+                {params.fullStyle && <div className="col-sm-9">
                     <img src={map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL} alt="Map Thumbnail" className="img-fluid rounded-start" style={{ background: `border-radius: 0px; box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)`, aspectRatio: "1 / 1", objectFit: "contain" }} />
                 </div>}
                 {!params.fullStyle && <div style={{ height: 256, flex: 0, aspectRatio: "1 / 1" }}><img src={map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL} alt="Map Thumbnail" className="img-fluid rounded-start" style={{ background: `border-radius: 0px; box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)`, aspectRatio: "1 / 1", objectFit: "contain", width: "100%", height: "100%" }} /></div>}
