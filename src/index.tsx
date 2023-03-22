@@ -52,6 +52,7 @@ function Index() {
                                                 muted={true}
                                                 playsInline={true}
                                                 autoPlay={true}
+                                                style={{ objectFit: "cover" }}
                                             />
                                         </div>
                                     </div>

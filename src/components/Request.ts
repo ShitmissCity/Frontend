@@ -44,6 +44,7 @@ export default function Request(params: PropsWithChildren) {
         value: {
             getUrl: getUrl,
             setAuthorizationHeader: (token: string) => {
+                console.log("Setting authorization header to " + token);
                 authorizationHeader = token;
             },
             scoresaberSvg: scoresaberSvg
