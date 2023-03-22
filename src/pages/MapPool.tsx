@@ -104,10 +104,10 @@ export default function MapPoolRender() {
                 <Transition in={currentShown === poolIndex} classNames="slide-transition" timeout={500} doFade={!loading} >
                     {!loading && pools.length > 0 ? (
                         <div style={{ minHeight: 100 }} className="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 justify-content-center">
-                            {pools[poolIndex].maps.map((map, index) => (
+                            {pools[poolIndex].maps.map(map => (
                                 <div className="col mb-2">
                                     <Transition in={true} classNames="fade-transition" timeout={500}>
-                                        <SongInfo map={map} index={index} fullStyle={true} />
+                                        <SongInfo map={map} index={map.song_id} fullStyle={true} />
                                     </Transition>
                                 </div>))}
                         </div>
