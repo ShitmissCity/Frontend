@@ -7,7 +7,6 @@ $twitter: #4099ff;
 $loading-background: #0000004f;
 
 // Links
-$link: $primary;
 $link-invert: invert($primary);
 $link-focus-border: $primary;
 
@@ -23,6 +22,7 @@ $theme-colors: (
     "light": $light,
     "dark": $dark,
 );
+$link: $light;
 $modal-content-bg: $dark;
 $modal-content-color: $white;
 $body-color: $white;
