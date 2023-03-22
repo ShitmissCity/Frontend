@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { TransitionGroup } from "react-transition-group";
 import BackgroundContainer from "../components/Background";
 import Loader from "../components/Loader";
 import { useRequest } from "../components/Request";
@@ -89,8 +90,8 @@ export default function Teams() {
                 </div>
             </BackgroundContainer>
             <section className="section app-background">
-                {!loading && qualif && qualif.maps.map((map, index) => (
-                    <div className="col mb-2">
+                <TransitionGroup>
+                    {!loading && qualif && qualif.maps.map((map, index) => (
                         <Transition in={true} classNames="fade-transition" timeout={500}>
                             <SongInfo map={map} index={index} fullStyle={false} additionalContent={
                                 (
@@ -131,8 +132,8 @@ export default function Teams() {
                                     </>
                                 )
                             } />
-                        </Transition>
-                    </div>))}
+                        </Transition>))}
+                </TransitionGroup>
                 {!loading && !qualif && (
                     <div className="d-flex justify-content-center">
                         <h3 className="text-center">No qualifier available at this moment.</h3>

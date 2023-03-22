@@ -3,8 +3,8 @@
     transform: translateY(0);
     opacity: 1;
 }
-.slide-transition-enter,
-.slide-transition-exit {
+.slide-transition-entering,
+.slide-transition-exiting {
     transform: translateY(10px);
     opacity: 0;
 }

@@ -1,41 +1,25 @@
 import React from "react";
+import { Transition as CSSTransition, TransitionStatus } from "react-transition-group";
 
 export default function Transition(props: { children: React.ReactNode, in: boolean, timeout: number, classNames: string, doFade?: boolean }) {
-    const [show, setShow] = React.useState(false);
-    const [prevChildren, setPrevChildren] = React.useState<React.ReactNode>(props.children);
-
-    var timeout: NodeJS.Timeout;
+    const [prev, setPrev] = React.useState<React.ReactNode>(null);
 
     React.useEffect(() => {
-        clearTimeout(timeout);
-        if (props.in) {
-            setPrevChildren(props.children);
-            setShow(true);
-            timeout = setTimeout(() => {
-                setShow(false);
-            }, props.timeout);
-        } else {
-            setShow(true);
-            timeout = setTimeout(() => {
-                setShow(false);
-            }, props.timeout);
-        }
-    }, [props.in]); // eslint-disable-line
-
-    React.useEffect(() => {
-        if (props.doFade) {
-            setPrevChildren(props.children);
-            setShow(true);
-            clearTimeout(timeout);
-            timeout = setTimeout(() => {
-                setShow(false);
-            }, props.timeout);
-        }
-    }, [props.children]);
+        setTimeout(() => {
+            setPrev(props.children);
+        }, props.timeout);
+    }, [props.in]);
 
     return (
-        <div className={props.classNames + " " + (show && (props.doFade ?? true) ? `${props.in ? props.classNames + "-enter" : props.classNames + "-exit"}` : (props.doFade ?? true ? "" : props.classNames + "-enter"))}>
-            {prevChildren}
-        </div>
+        <CSSTransition
+            in={props.in}
+            timeout={props.timeout}>
+            {(state) => (<div className={props.classNames + " " + props.classNames + "-" + state}>
+                {prev}
+            </div>)}
+
+        </CSSTransition>
+        // <div className={props.classNames + " " + (show && (props.doFade ?? true) ? `${props.in ? props.classNames + "-enter" : props.classNames + "-exit"}` : (props.doFade ?? true ? "" : props.classNames + "-enter"))}>
+        // </div>
     );
 }

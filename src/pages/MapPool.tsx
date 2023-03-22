@@ -8,6 +8,7 @@ import "./MapPool.scss";
 import { BeatSaverApi } from "../entity/BeatSaverApi";
 import { useRequest } from "../components/Request";
 import SongInfo from "../components/SongInfo";
+import { TransitionGroup } from "react-transition-group";
 
 export default function MapPoolRender() {
     const [pools, setPools] = React.useState<MapPool[]>([]);
@@ -103,14 +104,16 @@ export default function MapPoolRender() {
             <section className="section is-dark app-background" style={{ minHeight: "56.3vh" }}>
                 <Transition in={currentShown === poolIndex} classNames="slide-transition" timeout={500} doFade={!loading} >
                     {!loading && pools.length > 0 ? (
-                        <div style={{ minHeight: 100 }} className="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 justify-content-center">
-                            {pools[poolIndex].maps.map(map => (
-                                <div className="col mb-2">
-                                    <Transition in={true} classNames="fade-transition" timeout={500}>
-                                        <SongInfo map={map} index={map.song_id} fullStyle={true} />
-                                    </Transition>
-                                </div>))}
-                        </div>
+                        <TransitionGroup>
+                            <div style={{ minHeight: 100 }} className="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 justify-content-center">
+                                {pools[poolIndex].maps.map(map => (
+                                    <div className="col mb-2" key={map.song_id + map.type}>
+                                        <Transition in={true} classNames="fade-transition" timeout={500}>
+                                            <SongInfo map={map} fullStyle={true} />
+                                        </Transition>
+                                    </div>))}
+                            </div>
+                        </TransitionGroup>
                     ) : null}
                 </Transition>
             </section>

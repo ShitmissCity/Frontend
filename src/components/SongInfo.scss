@@ -2,8 +2,8 @@
     transition: opacity 0.5s ease;
     opacity: 1;
 }
-.fade-transition-enter,
-.fade-transition-exit {
+.fade-transition-entering,
+.fade-transition-exiting {
     opacity: 0;
 }
 .media-content {
