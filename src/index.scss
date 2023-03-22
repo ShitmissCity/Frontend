@@ -7,11 +7,10 @@ $twitter: #4099ff;
 $loading-background: #0000004f;
 
 // Links
+@import "~bootstrap/scss/variables";
 $link: $light;
 $link-invert: invert($light);
 $link-focus-border: $primary;
-
-@import "~bootstrap/scss/variables";
 
 $theme-colors: (
     "primary": $primary,
