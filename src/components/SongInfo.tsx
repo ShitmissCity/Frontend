@@ -29,7 +29,7 @@ export default function SongInfo(params: { map: Map, index?: React.Key, fullStyl
                         <span style={{ width: "100%", color: "#8c8c8c", wordWrap: "normal", whiteSpace: "break-spaces", lineHeight: "24px" }}>
                             Mapped by: {map.beatsaver.metadata.levelAuthorName}
                         </span>
-                        <div style={{ marginTop: "auto", display: "flex", lineHeight: "24px" }}>
+                        <div style={{ marginTop: ".1rem", display: "flex", lineHeight: "24px" }}>
                             <span className="badge" style={{ backgroundColor: getMapTypeColor(map.type), color: "white", fontFamily: "Segoe UI", lineHeight: "unset", paddingTop: 0, paddingBottom: 0 }}>{getMapTypeString(map.type)}</span>
                             <a data-tooltip="One Click" href={`beatsaver://${map.song_id}`} target="_blank" rel="noreferrer" style={{ marginLeft: 14, color: "white" }}><FontAwesomeIcon icon={solid("download")} /></a>
                             <a data-tooltip="BeatSaver" href={`https://beatsaver.com/maps/${map.song_id}`} target="_blank" rel="noreferrer" style={{ marginLeft: 14, color: "white" }}><FontAwesomeIcon icon={solid("compact-disc")} /></a>
