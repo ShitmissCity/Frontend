@@ -107,7 +107,7 @@ export default function MapPoolRender() {
                         <TransitionGroup>
                             <div style={{ minHeight: 100 }} className="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 justify-content-center">
                                 {pools[poolIndex].maps.map(map => (
-                                    <div className="col mb-2" key={map.song_id + map.type}>
+                                    <div className="col mb-3" key={map.song_id + map.type}>
                                         <Transition in={true} classNames="fade-transition" timeout={500}>
                                             <SongInfo map={map} fullStyle={true} />
                                         </Transition>
