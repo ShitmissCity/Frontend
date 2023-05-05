@@ -66,4 +66,22 @@ function Index() {
     </React.StrictMode>;
 }
 
-createRoot(document.getElementById("root")).render(<Index />);
+function UnsuportedBrowser() {
+    return <div className="container">
+        <div className="row">
+            <div className="col-12">
+                <div className="card">
+                    <div className="card-body">
+                        <h1 className="card-title">Unsuported Browser</h1>
+                        <p className="card-text">Your browser does not support the features required by this website. Please use a modern chromium browser such as <a className="btn btn-primary" href="https://www.google.com/chrome/">Google Chrome</a> or <a className="btn btn-primary" href="https://www.microsoft.com/edge">Edge</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>;
+}
+
+if (window.navigator.userAgent.includes("AppleWebKit"))
+    createRoot(document.getElementById("root")).render(<Index />);
+else
+    createRoot(document.getElementById("root")).render(<UnsuportedBrowser />);
