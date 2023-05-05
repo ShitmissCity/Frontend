@@ -16,8 +16,8 @@ export function useModal() {
 }
 
 export default function Modal(props: PropsWithChildren) {
-    const [display, setDisplay] = React.useState<boolean>(false);
     const [show, setShow] = React.useState<boolean>(false);
+    const [showState, setShowState] = React.useState<React.CSSProperties>({ opacity: 0, transform: "translateY(-50px)" });
     const [body, setBody] = React.useState<ReactNode>(null);
     const [footer, setFooter] = React.useState<ReactNode>(null);
     const [header, setHeader] = React.useState<ReactNode>(null);
@@ -57,19 +57,25 @@ export default function Modal(props: PropsWithChildren) {
     }
 
     useEffect(() => {
-        if (!show)
+        if (!show) {
+            setShowState({ display: "block", opacity: 0, transform: "translateY(-50px)" });
             setTimeout(() => {
-                setDisplay(show);
+                setShowState({ opacity: 0, transform: "translateY(-50px)" });
             }, 300);
-        else
-            setDisplay(show);
-    });
+        }
+        else {
+            setShowState({ display: "block", opacity: 0, transform: "translateY(-50px)" });
+            setTimeout(() => {
+                setShowState({ display: "block", opacity: 1, transform: "translateY(0)" });
+            }, 10);
+        }
+    }, [show]);
 
     return createElement(modalContext.Provider, {
         value: { openModal, closeModal, setRedirect },
     }, <>
         {props.children}
-        <div className={"modal fade" + (show ? " show" : "")} style={{ display: display ? "block" : "none", zIndex: 90000, opacity: show ? 1 : 0, transition: "opacity 0.3s ease-out" }}>
+        <div className={"modal"} style={{ zIndex: 90000, transition: "opacity 0.3s ease-in, transform 0.3s ease-in", ...showState }}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">

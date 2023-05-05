@@ -208,3 +208,20 @@ sub:not(.sub-original) {
     font-weight: 400;
     color: var(--bs-gray-500);
 }
+
+.fancy-scrollbar::-webkit-scrollbar {
+    width: 15px;
+}
+
+.fancy-scrollbar::-webkit-scrollbar-track {
+    background: #14141467;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.fancy-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4b4b4bb7;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 5px;
+}

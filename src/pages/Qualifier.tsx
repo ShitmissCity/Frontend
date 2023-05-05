@@ -67,14 +67,35 @@ export default function Teams() {
 
     function drawTeamScores(map: Map) {
         var teams = getTeamScores(map)
-        return teams.map((score, index) => (
-            <tr>
-                <td><p className="text-center ps-2 pe-2" style={{ color: "#999999" }}>#{index + 1}</p></td>
-                <td><p className="text-center ps-2 pe-2">{score.player.username}</p></td>
-                <td><p className="text-center ps-2 pe-2">{score.score}</p></td>
-                <td><p className="text-center ps-2 pe-2">{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, teams)}%)</sub></p></td>
-            </tr>
-        ))
+        teams.splice(0, 0, ...teams);
+        teams.splice(0, 0, ...teams);
+        teams.splice(0, 0, ...teams);
+        teams.splice(0, 0, ...teams);
+        teams.splice(0, 0, ...teams);
+        return teams.map((score, index) => {
+            var backgroundColor = index % 2 === 0 ? (index / 15 > 1 ? "#ff000066" : "#00000033") : index / 15 > 1 ? "#ff000033" : "unset";
+            return (
+                <>
+                    <div className="row g-0" style={{ borderTop: `solid ${index == 16 ? "5px #330000ff" : "1px #40404066"}`, backgroundColor: backgroundColor }}>
+                        <p className="text-center pt-2 pb-2 col-1 m-0" style={{ color: "#999999" }}>#{index + 1}</p>
+                        <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.player.username}</p>
+                        <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.score}</p>
+                        <p className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, teams)}%)</sub></p>
+                    </div>
+                </>
+            );
+        })
+    }
+
+    function drawPlayerScores(map: Map) {
+        return map.scores.map((score, index) => (
+            <div className="row g-0" style={{ borderTop: "1px solid #40404066", backgroundColor: index % 2 === 0 ? "#00000033" : "unset" }}>
+                <p className="text-center pt-2 pb-2 col-1 m-0" style={{ color: "#999999" }}>#{index + 1}</p>
+                <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.player.username}</p>
+                <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.score}</p>
+                <p className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, map.scores)}%)</sub></p>
+            </div>
+        ));
     }
 
     return (
@@ -92,41 +113,34 @@ export default function Teams() {
             <section className="section app-background">
                 <TransitionGroup>
                     {!loading && qualif && qualif.maps.map((map, index) => (
-                        <Transition in={true} classNames="fade-transition" timeout={500}>
+                        <Transition in={true} classNames="mb-3 fade-transition" timeout={500}>
                             <SongInfo map={map} index={index} fullStyle={false} additionalContent={
                                 (
                                     <>
-                                        <div className="col-3 pt-3">
-                                            <div className="container d-flex justify-content-center">
-                                                <table>
-                                                    <tr>
-                                                        <th><h3 className="text-center ps-2 pe-2">&nbsp;&nbsp;</h3></th>
-                                                        <th><h3 className="text-center ps-2 pe-2">Team</h3></th>
-                                                        <th><h3 className="text-center ps-2 pe-2">Score</h3></th>
-                                                        <th><h3 className="text-center ps-2 pe-2">Accuracy <sub>(Relative)</sub></h3></th>
-                                                    </tr>
-                                                    {drawTeamScores(map)}
-                                                </table>
+                                        <div className="col-3 mt-3 me-3 mb-3 fancy-scrollbar rounded" style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56 }}>
+                                            <div className="card">
+                                                <div className="row g-0" style={{ position: "fixed", width: "25%", top: "1rem", paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
+                                                    <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
+                                                        <h3 className="text-center pt-2 pb-2 col-1 m-0">&nbsp;</h3>
+                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Team</h3>
+                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Score</h3>
+                                                        <h3 className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>Accuracy <sub>(Relative)</sub></h3>
+                                                    </div>
+                                                </div>
+                                                {drawTeamScores(map)}
                                             </div>
                                         </div>
-                                        <div className="col-3 pt-3">
-                                            <div className="container d-flex justify-content-center">
-                                                <table>
-                                                    <tr>
-                                                        <th><h3 className="text-center ps-2 pe-2">&nbsp;&nbsp;</h3></th>
-                                                        <th><h3 className="text-center ps-2 pe-2">Player</h3></th>
-                                                        <th><h3 className="text-center ps-2 pe-2">Score</h3></th>
-                                                        <th><h3 className="text-center ps-2 pe-2">Accuracy <sub>(Relative)</sub></h3></th>
-                                                    </tr>
-                                                    {map.scores.map((score, index) => (
-                                                        <tr>
-                                                            <td><p className="text-center ps-2 pe-2" style={{ color: "#999999" }}>#{index + 1}</p></td>
-                                                            <td><p className="text-center ps-2 pe-2">{score.player.username}</p></td>
-                                                            <td><p className="text-center ps-2 pe-2">{score.score}</p></td>
-                                                            <td><p className="text-center ps-2 pe-2">{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, map.scores)}%)</sub></p></td>
-                                                        </tr>
-                                                    ))}
-                                                </table>
+                                        <div className="col-3 mt-3 me-3 mb-3 fancy-scrollbar rounded" style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56 }}>
+                                            <div className="card">
+                                                <div className="row g-0" style={{ position: "fixed", width: "25%", top: "1rem", paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
+                                                    <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
+                                                        <h3 className="text-center pt-2 pb-2 col-1 m-0">&nbsp;</h3>
+                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Player</h3>
+                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Score</h3>
+                                                        <h3 className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>Accuracy <sub>(Relative)</sub></h3>
+                                                    </div>
+                                                </div>
+                                                {drawPlayerScores(map)}
                                             </div>
                                         </div>
                                     </>

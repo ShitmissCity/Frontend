@@ -11,12 +11,12 @@ export default function SongInfo(params: { map: Map, index?: React.Key, fullStyl
     const { scoresaberSvg } = useRequest();
     return (
         <div className="card rounded" key={params.index} style={{ transform: "skew(-7.5deg)", overflow: "hidden" }}>
-            <div style={{ transform: "skew(7.5deg)", background: `linear-gradient(to left, rgba(48, 48, 48, 0.85), rgb(32, 32, 32)) repeat scroll 0% 0%, rgba(0, 0, 0, 0) url(${map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL})`, backgroundSize: "cover", width: "104%", marginLeft: -8, backgroundPositionY: "-100px" }}>
+            <div style={{ transform: "skew(7.5deg)", background: `linear-gradient(to left, rgba(48, 48, 48, 0.85), rgb(32, 32, 32)) repeat scroll 0% 0%, rgba(0, 0, 0, 0) url(${map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL})`, backgroundSize: "cover", width: "104%", marginLeft: params.fullStyle ? "-9px" : "-.75vw", backgroundPositionY: "-100px", height: !params.fullStyle ? 256 : null }}>
                 <div className="row g-0">
                     {params.fullStyle && <div className="col-sm-3">
                         <img src={map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL} alt="Map Thumbnail" className="img-fluid rounded-start" style={{ background: `border-radius: 0px; box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)`, aspectRatio: "1 / 1", objectFit: "cover" }} />
                     </div>}
-                    {!params.fullStyle && <div style={{ height: 256, flex: 0, aspectRatio: "1 / 1" }}><img src={map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL} alt="Map Thumbnail" className="img-fluid rounded-start" style={{ background: `border-radius: 0px; box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)`, aspectRatio: "1 / 1", objectFit: "contain", width: "100%", height: "100%" }} /></div>}
+                    {!params.fullStyle && <div style={{ height: 256, flex: 0, aspectRatio: "1 / 1" }}><img src={map.beatsaver.versions[map.beatsaver.versions.length - 1].coverURL} alt="Map Thumbnail" className="img-fluid rounded-start" style={{ background: `border-radius: 0px; box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02)`, aspectRatio: "1 / 1", objectFit: "cover", width: "100%", height: "100%" }} /></div>}
                     <div className={"ps-2 col-sm-" + (params.fullStyle ? "9" : "3")} style={{ flex: "0 0 auto" }}>
                         <div className="card-body d-flex flex-column">
                             <p className="title" style={{ fontSize: "2.5vh", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: 0, lineHeight: "40px" }}>

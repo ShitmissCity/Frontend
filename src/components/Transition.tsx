@@ -1,5 +1,5 @@
 import React from "react";
-import { Transition as CSSTransition, TransitionStatus } from "react-transition-group";
+import { Transition as CSSTransition } from "react-transition-group";
 
 export default function Transition(props: { children: React.ReactNode, in: boolean, timeout: number, classNames: string, doFade?: boolean }) {
     const [prev, setPrev] = React.useState<React.ReactNode>(null);
