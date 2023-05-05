@@ -44,11 +44,12 @@ export default function Teams() {
             var losersBracket = res.rounds.filter(t => t.losers).map(t => {
                 return {
                     title: t.name,
-                    seeds: t.matches.map(s => {
+                    seeds: t.matches.sort((a, b) => a.id - b.id).map(s => {
                         return {
                             id: s.id,
-                            teams: s.matchUsers.map(t => {
+                            teams: s.matchUsers.sort((a, b) => a.seed - b.seed).map(t => {
                                 return {
+                                    id: t.id,
                                     name: t.name,
                                     seed: t.seed,
                                     score: t.score
@@ -61,10 +62,10 @@ export default function Teams() {
             var winnersBracket = res.rounds.filter(t => !t.losers).map(t => {
                 return {
                     title: t.name,
-                    seeds: t.matches.map(s => {
+                    seeds: t.matches.sort((a, b) => a.id - b.id).map(s => {
                         return {
                             id: s.id,
-                            teams: s.matchUsers.map(t => {
+                            teams: s.matchUsers.sort((a, b) => a.seed - b.seed).map(t => {
                                 return {
                                     id: t.id,
                                     name: t.name,
