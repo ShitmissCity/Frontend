@@ -71,7 +71,7 @@ export default function Teams() {
             var backgroundColor = index % 2 === 0 ? (index / 15 > 1 ? "#ff000066" : "#00000033") : index / 15 > 1 ? "#ff000033" : "unset";
             return (
                 <>
-                    <div className="row g-0" style={{ borderTop: `solid ${index == 16 ? "5px #330000ff" : "1px #40404066"}`, backgroundColor: backgroundColor }}>
+                    <div className="row g-0" style={{ borderTop: `solid ${index === 16 ? "5px #330000ff" : "1px #40404066"}`, backgroundColor: backgroundColor }}>
                         <p className="text-center pt-2 pb-2 col-1 m-0" style={{ color: "#999999" }}>#{index + 1}</p>
                         <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.player.username}</p>
                         <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.score}</p>
