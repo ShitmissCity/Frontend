@@ -67,11 +67,6 @@ export default function Teams() {
 
     function drawTeamScores(map: Map) {
         var teams = getTeamScores(map)
-        teams.splice(0, 0, ...teams);
-        teams.splice(0, 0, ...teams);
-        teams.splice(0, 0, ...teams);
-        teams.splice(0, 0, ...teams);
-        teams.splice(0, 0, ...teams);
         return teams.map((score, index) => {
             var backgroundColor = index % 2 === 0 ? (index / 15 > 1 ? "#ff000066" : "#00000033") : index / 15 > 1 ? "#ff000033" : "unset";
             return (
