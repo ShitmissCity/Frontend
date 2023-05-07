@@ -16,6 +16,8 @@ const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 
 function Index() {
     const playerRef = React.useRef<HTMLVideoElement>();
+    const appRef = React.useRef<HTMLDivElement>();
+    const mobileRef = React.useRef<HTMLDivElement>();
 
     function play() {
         if (playerRef.current) {
@@ -26,44 +28,69 @@ function Index() {
 
     React.useEffect(() => {
         document.getElementById("root").addEventListener("click", play);
-    })
+        window.addEventListener("resize", () => {
+            if (window.innerWidth < 1280) {
+                appRef.current.style.display = "none";
+                mobileRef.current.style.display = "block";
+            } else {
+                appRef.current.style.display = "block";
+                mobileRef.current.style.display = "none";
+            }
+        });
+    }, []);
 
-    return <React.StrictMode>
-        <Suspense fallback={<Loader />}>
-            <BrowserRouter basename={baseUrl}>
-                <Title>
-                    <Toast>
-                        <Request>
-                            <Auth>
-                                <Modal>
+    // return <React.StrictMode>
+    return <Suspense fallback={<Loader />}>
+        <BrowserRouter basename={baseUrl}>
+            <Title>
+                <Toast>
+                    <Request>
+                        <Auth>
+                            <Modal>
+                                <div ref={appRef} style={{ display: window.innerWidth < 1280 ? "none" : null }}>
                                     <Header />
                                     <App />
-                                    <Footer />
-
-                                    <div className="video-background">
-                                        <div className="video-foreground">
-                                            <ReactHlsPlayer
-                                                playerRef={playerRef}
-                                                src="img/background.m3u8"
-                                                controls={false}
-                                                width="100%"
-                                                height="100%"
-                                                loop={true}
-                                                muted={true}
-                                                playsInline={true}
-                                                autoPlay={true}
-                                                style={{ objectFit: "cover" }}
-                                            />
+                                </div>
+                                <div ref={mobileRef} style={{ display: window.innerWidth < 1280 ? null : "none" }}>
+                                    <div className="hero">
+                                        <div className="hero-body">
+                                            <div className="container">
+                                                <div className="row app-background rounded text-center">
+                                                    <div className="col-12">
+                                                        <h1 className="card-title">Mobile Not Supported</h1>
+                                                        <p className="card-text">This website is not supported on mobile devices. Please use a desktop or laptop computer.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </Modal>
-                            </Auth>
-                        </Request>
-                    </Toast>
-                </Title>
-            </BrowserRouter>
-        </Suspense>
-    </React.StrictMode>;
+                                </div>
+                                <Footer />
+
+                                <div className="video-background">
+                                    <div className="video-foreground">
+                                        <ReactHlsPlayer
+                                            playerRef={playerRef}
+                                            src="img/background.m3u8"
+                                            controls={false}
+                                            width="100%"
+                                            height="100%"
+                                            loop={true}
+                                            muted={true}
+                                            playsInline={true}
+                                            autoPlay={true}
+                                            style={{ objectFit: "cover" }}
+                                        />
+                                    </div>
+                                </div>
+                            </Modal>
+                        </Auth>
+                    </Request>
+                </Toast>
+            </Title>
+        </BrowserRouter>
+    </Suspense>;
+    // </React.StrictMode>;
 }
 
 function UnsuportedBrowser() {

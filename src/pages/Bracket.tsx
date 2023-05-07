@@ -8,6 +8,7 @@ import { Brackets } from "../entity/Bracket";
 import { Permission } from "../entity/User";
 import { useAuth } from "../components/Auth";
 import { useModal } from "../components/Modal";
+import "./Bracket.scss";
 
 export default function Teams() {
     const { setTitle } = useTitle();
@@ -150,9 +151,14 @@ export default function Teams() {
                 </div>
             </BackgroundContainer>
             <div className="container-fluid" style={{ paddingLeft: "5rem", paddingRight: "5rem" }}>
-                <Bracket rounds={bracket[0]} renderSeedComponent={CustomSeed} roundTitleComponent={CustomTitle} bracketClassName="justify-content-center" />
-                <div style={{ height: 20, width: "100%" }} />
-                <Bracket rounds={bracket[1]} renderSeedComponent={CustomSeed} roundTitleComponent={CustomTitle} bracketClassName="justify-content-center" />
+                <div className="bracket-width-fix" style={{ overflowX: "scroll" }}>
+                    <div>
+                        <Bracket rounds={bracket[0]} renderSeedComponent={CustomSeed} roundTitleComponent={CustomTitle} bracketClassName="justify-content-center" />
+                        <div style={{ height: 20, width: "100%" }} />
+                        <Bracket rounds={bracket[1]} renderSeedComponent={CustomSeed} roundTitleComponent={CustomTitle} bracketClassName="justify-content-center" />
+                    </div>
+                </div>
+                <h2 className="bracket-mobile">Bracket is not available on mobile devices</h2>
             </div>
         </>
     );

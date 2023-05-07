@@ -9,7 +9,6 @@ import Transition from "../components/Transition";
 import { MapPool, Map } from "../entity";
 import { BeatSaverApi } from "../entity/BeatSaverApi";
 import { getScorePercentage, getScorePercentageRelative, getTeamScores } from "../entity/MapPoolAndScores";
-import "./Qualifier.scss";
 
 type res = (value: Response) => void;
 
@@ -70,25 +69,23 @@ export default function Teams() {
         return teams.map((score, index) => {
             var backgroundColor = index % 2 === 0 ? (index / 15 > 1 ? "#ff000066" : "#00000033") : index / 15 > 1 ? "#ff000033" : "unset";
             return (
-                <>
-                    <div className="row g-0" style={{ borderTop: `solid ${index === 16 ? "5px #330000ff" : "1px #40404066"}`, backgroundColor: backgroundColor }}>
-                        <p className="text-center pt-2 pb-2 col-1 m-0" style={{ color: "#999999" }}>#{index + 1}</p>
-                        <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.player.username}</p>
-                        <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.score}</p>
-                        <p className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, teams)}%)</sub></p>
-                    </div>
-                </>
+                <div key={`team${index}`} className="row g-0" style={{ borderTop: `solid ${index === 16 ? "5px #330000ff" : "1px #40404066"}`, backgroundColor: backgroundColor }}>
+                    <p className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>#{index + 1}</p>
+                    <p className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>{score.player.username}</p>
+                    <p className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>{score.score}</p>
+                    <p className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, teams)}%)</sub></p>
+                </div>
             );
         })
     }
 
     function drawPlayerScores(map: Map) {
         return map.scores.map((score, index) => (
-            <div className="row g-0" style={{ borderTop: "1px solid #40404066", backgroundColor: index % 2 === 0 ? "#00000033" : "unset" }}>
-                <p className="text-center pt-2 pb-2 col-1 m-0" style={{ color: "#999999" }}>#{index + 1}</p>
-                <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.player.username}</p>
-                <p className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>{score.score}</p>
-                <p className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, map.scores)}%)</sub></p>
+            <div key={`player${index}`} className="row g-0" style={{ borderTop: "1px solid #40404066", backgroundColor: index % 2 === 0 ? "#00000033" : "unset" }}>
+                <p className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>#{index + 1}</p>
+                <p className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>{score.player.username}</p>
+                <p className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>{score.score}</p>
+                <p className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>{getScorePercentage(score, map)}% <sub>({getScorePercentageRelative(score, map.scores)}%)</sub></p>
             </div>
         ));
     }
@@ -108,37 +105,39 @@ export default function Teams() {
             <section className="section app-background">
                 <TransitionGroup>
                     {!loading && qualif && qualif.maps.map((map, index) => (
-                        <Transition in={true} classNames="mb-3 fade-transition" timeout={500}>
+                        <Transition key={`mapfade${index}`} in={true} classNames="mb-3 fade-transition" timeout={500}>
                             <SongInfo map={map} index={index} fullStyle={false} additionalContent={
                                 (
-                                    <>
-                                        <div className="col-3 mt-3 me-3 mb-3 fancy-scrollbar rounded" style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56 }}>
-                                            <div className="card">
-                                                <div className="row g-0" style={{ position: "fixed", width: "25%", top: "1rem", paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
-                                                    <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
-                                                        <h3 className="text-center pt-2 pb-2 col-1 m-0">&nbsp;</h3>
-                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Team</h3>
-                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Score</h3>
-                                                        <h3 className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>Accuracy <sub>(Relative)</sub></h3>
+                                    <div className="col-6 fancy-scrollbar" style={{ overflowX: "scroll", overflowY: "clip" }}>
+                                        <div style={{ width: 1240, height: 241 }}>
+                                            <div className={"mt-3 me-3 mb-3 fancy-scrollbar rounded" + (map.scores.length > 0 ? "" : " no-scrollbar")} style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56, display: "inline-block" }}>
+                                                <div className="card" style={{ width: 586, position: "relative" }}>
+                                                    <div className="row g-0" style={{ position: "absolute", top: -56, paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
+                                                        <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>&nbsp;</h3>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Team</h3>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Score</h3>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>Accuracy <sub>(Relative)</sub></h3>
+                                                        </div>
                                                     </div>
+                                                    {drawTeamScores(map)}
                                                 </div>
-                                                {drawTeamScores(map)}
+                                            </div>
+                                            <div className={"mt-3 me-3 mb-3 fancy-scrollbar rounded" + (map.scores.length > 0 ? "" : " no-scrollbar")} style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56, display: "inline-block" }}>
+                                                <div className="card" style={{ width: 586, position: "relative" }}>
+                                                    <div className="row g-0" style={{ position: "absolute", top: -56, paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
+                                                        <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>&nbsp;</h3>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Player</h3>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Score</h3>
+                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>Accuracy <sub>(Relative)</sub></h3>
+                                                        </div>
+                                                    </div>
+                                                    {drawPlayerScores(map)}
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="col-3 mt-3 me-3 mb-3 fancy-scrollbar rounded" style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56 }}>
-                                            <div className="card">
-                                                <div className="row g-0" style={{ position: "fixed", width: "25%", top: "1rem", paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
-                                                    <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
-                                                        <h3 className="text-center pt-2 pb-2 col-1 m-0">&nbsp;</h3>
-                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Player</h3>
-                                                        <h3 className="text-center pt-2 pb-2 col-3 m-0" style={{ borderLeft: "1px solid #40404066" }}>Score</h3>
-                                                        <h3 className="text-center pt-2 pb-2 col-5 m-0" style={{ borderLeft: "1px solid #40404066" }}>Accuracy <sub>(Relative)</sub></h3>
-                                                    </div>
-                                                </div>
-                                                {drawPlayerScores(map)}
-                                            </div>
-                                        </div>
-                                    </>
+                                    </div>
                                 )
                             } />
                         </Transition>))}

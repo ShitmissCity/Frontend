@@ -225,3 +225,7 @@ sub:not(.sub-original) {
     border-bottom-right-radius: 20px;
     margin: 5px;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
