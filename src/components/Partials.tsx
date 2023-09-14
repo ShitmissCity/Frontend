@@ -14,7 +14,7 @@ export function Footer() {
             <div className="container">
                 <div className="d-flex justify-content-center">
                     <h6 className="theme-color">
-                        Website built by the <b>Shitmiss Productions</b> Dev Team for Shitmiss City {process.env.REACT_APP_YEAR}.
+                        Website built by the <b>Shitmiss</b> Dev Team for Shitmiss City {process.env.REACT_APP_YEAR}.
                     </h6>
                 </div>
                 <div className="d-flex justify-content-center">
