@@ -32,7 +32,6 @@ export function Header() {
 
     const path = [
         { name: "Home", path: "/" },
-        // { name: "Player Signup", path: "/player/sign-up" }, // TODO: Add this back in when auth is implemented
         { name: "Teams", path: "/teams" },
         { name: "Map Pools", path: "/mappools" },
         { name: "Qualifiers", path: "/qualifiers" },
@@ -97,7 +96,6 @@ export function Header() {
                         {buttons}
                     </ul>
                     <ul className="navbar-nav ms-auto me-2">
-                        {/* //TODO: Add user buttons when auth is done */}
                         <li className="navbar-item me-2">
                             <LoginButton />
                         </li>
