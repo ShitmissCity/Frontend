@@ -14,6 +14,7 @@ export default function Teams() {
     const { setTitle } = useTitle();
     const [loading, setLoading] = useState(true);
     const [bracket, setBracket] = useState<IRoundProps[][]>([[], []]);
+    const [createBracketData, setCreateBracketData] = useState<{ name: string, active: boolean, type: number }>({ name: "", active: false, type: -1 })
     const [editMatchData, setEditMatchData] = useState<{ id: number, name: string, score: number, seed: string, matchId: number }[]>([]);
     const { openModal, closeModal } = useModal();
     const { user } = useAuth();
@@ -31,6 +32,14 @@ export default function Teams() {
                 <button className="btn btn-danger" onClick={() => { closeModal(); setEditMatchData([]); }}>Close</button>
             </>);
     }, [editMatchData])
+
+    useEffect(() => {
+        if (createBracketData.type >= 0)
+            openModal("Create new bracket", <BracketCreateModal setCreateBracketData={setCreateBracketData} />, <>
+                <button className="btn btn-primary" onClick={() => createBracket()}>Create</button>
+                <button className="btn btn-danger" onClick={() => closeModal()}>Close</button>
+            </>);
+    }, [createBracketData]);
 
     function loadBracket() {
         getUrl("/public/bracket").then((res: Response) => {
@@ -109,6 +118,17 @@ export default function Teams() {
             }));
     }
 
+    function createBracket() {
+        console.log(createBracketData);
+        getUrl("/authorized/bracket/create", { method: "POST", body: JSON.stringify(createBracketData), headers: { "Content-Type": "application/json" } }).then(res => {
+            if (res.ok) {
+                closeModal();
+                setCreateBracketData({ active: false, name: "", type: -1 });
+                loadBracket();
+            }
+        })
+    }
+
     const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex, rounds }: IRenderSeedProps) => {
         const isLineConnector = rounds[roundIndex].seeds.length === rounds[roundIndex + 1]?.seeds.length;
 
@@ -145,7 +165,7 @@ export default function Teams() {
                         </h1>
                         {user && user.role && Permission.isRole(user.role.permissions, Permission.Admin) &&
                             <div className="ms-auto d-flex align-items-center">
-                                <button className="btn btn-danger">Create new bracket</button>
+                                <button className="btn btn-danger" onClick={() => setCreateBracketData({ active: false, name: "", type: 0 })}>Create new bracket</button>
                             </div>}
                     </div>
                 </div>
@@ -161,6 +181,44 @@ export default function Teams() {
                 <h2 className="bracket-mobile">Bracket is not available on mobile devices</h2>
             </div>
         </>
+    );
+}
+
+function BracketCreateModal(props: { setCreateBracketData: React.Dispatch<React.SetStateAction<{ name: string, active: boolean, type: number }>> }) {
+    const [active, setActive] = useState(false);
+    const [name, setName] = useState("");
+    const [type, setType] = useState(0);
+
+    useEffect(() => {
+        props.setCreateBracketData({ name: name, active: active, type: type });
+    }, [active, name, type]);
+
+    return (
+        <form>
+            <div className="form-group mb-3">
+                <label htmlFor="name" className="form-label">Name</label>
+                <input type="text" className="form-control" id="name" value={name} onChange={(e) => {
+                    setName(e.currentTarget.value);
+                    e.preventDefault();
+                }} />
+            </div>
+            <div className="form-check mb-3">
+                <input type="checkbox" className="form-check-input" id="active" checked={active} onChange={(e) => {
+                    setActive(!active);
+                }} />
+                <label htmlFor="active" className="form-check-label">Active</label>
+            </div>
+            <div className="input-group mb-3">
+                <label className="input-group-text" htmlFor="type">Type</label>
+                <select className="form-select" id="type" value={type} onChange={(e) => {
+                    setType(parseInt(e.currentTarget.value));
+                    e.preventDefault();
+                }}>
+                    <option value="0">Single Elimination</option>
+                    <option value="1">Double Elimination</option>
+                </select>
+            </div>
+        </form>
     );
 }
 

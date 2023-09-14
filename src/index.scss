@@ -40,6 +40,8 @@ $link-shade-percentage: 50%;
 $link-hover-color: shift-color($light, $link-shade-percentage);
 $dropdown-color: $white;
 $dropdown-bg: $dark;
+$input-group-addon-bg: $dark;
+$input-group-addon-border-color: rgba($white, 0.15);
 
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
