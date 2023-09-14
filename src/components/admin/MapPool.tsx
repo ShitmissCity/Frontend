@@ -175,7 +175,7 @@ export default function MapPoolElement() {
         let map = currentSongAdd.map;
         let pool = currentSongAdd.id;
         let hash = map.versions[0].hash;
-        let tmpScoresaber = `https://short.wildwolf.dev/api/leaderboard/by-hash/${hash}/info?difficulty=`;
+        let tmpScoresaber = `https://scoresaber.com/api/leaderboard/by-hash/${hash}/info?difficulty=`;
         let body = { id: map.id, hash, type: 0, scoresaberId: 0 };
         if (map.versions[0].diffs.length === 1) {
             let mapType = getMapTypeFromDifString(map.versions[0].diffs[0].difficulty);
