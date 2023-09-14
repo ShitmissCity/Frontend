@@ -61,4 +61,21 @@ export namespace Permission {
     export function isRole(role: Permission, permission: Permission): boolean {
         return (role & permission) === permission || (role & Permission.Owner) === Permission.Owner || (role & Permission.Admin) === Permission.Admin;
     }
+
+    export function color(role: Permission) {
+        switch (role) {
+            case Permission.Owner:
+                return "red";
+            case Permission.Admin:
+                return "red";
+            case Permission.Developer:
+                return "black";
+            case Permission.Coordinator:
+                return "green";
+            case Permission.MapPooler:
+                return "blue";
+            default:
+                return "transparent";
+        }
+    }
 }

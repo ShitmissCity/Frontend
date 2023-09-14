@@ -6,6 +6,7 @@ import TeamCard from "../components/TeamCard";
 import { useTitle } from "../components/Title";
 import Transition from "../components/Transition";
 import { User, Team } from "../entity";
+import { Permission } from "../entity/User";
 
 export default function Staff() {
     const [loading, setLoading] = useState(true);
@@ -56,7 +57,7 @@ export default function Staff() {
                                     <div className="col-sm-3">
                                         <img src={`https://cdn.discordapp.com/avatars/${user.discord_id}/${user.avatar_id}.webp`} alt="User image" className="img-fluid rounded-start" />
                                     </div>
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-9" style={{ borderLeft: `2px solid ${Permission.color(user.role.permissions)}`, paddingLeft: 4 }}>
                                         <h5>{user.username}</h5>
                                         <p>{user.role.position}</p>
                                     </div>
