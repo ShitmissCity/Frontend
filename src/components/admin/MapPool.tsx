@@ -175,13 +175,13 @@ export default function MapPoolElement() {
         let map = currentSongAdd.map;
         let pool = currentSongAdd.id;
         let hash = map.versions[0].hash;
-        let tmpScoresaber = `https://scoresaber.com/api/leaderboard/by-hash/${hash}/info?difficulty=`;
+        let tmpScoresaber = `/public/scoresaber/leaderboard/by-hash/${hash}?difficulty=`;
         let body = { id: map.id, hash, type: 0, scoresaberId: 0 };
         if (map.versions[0].diffs.length === 1) {
             let mapType = getMapTypeFromDifString(map.versions[0].diffs[0].difficulty);
             body.type = mapType | getMapTypeFromCharaString(map.versions[0].diffs[0].characteristic);
-            let scoresaber = `${tmpScoresaber}${getScoreSaberDiff(getMapTypeString(mapType))}&gameMode=Solo${map.versions[0].diffs[0].characteristic}`;
-            body.scoresaberId = (await (await fetch(scoresaber)).json()).id;
+            let scoresaber = `${tmpScoresaber}${getScoreSaberDiff(getMapTypeString(mapType))}&game_mode=Solo${map.versions[0].diffs[0].characteristic}`;
+            body.scoresaberId = (await (await getUrl(scoresaber)).json()).id;
         }
         else {
             var radioBtn = form.querySelector("input[name=mapTypeRadio]:checked") as HTMLInputElement;
