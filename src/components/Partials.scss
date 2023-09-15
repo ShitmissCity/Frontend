@@ -42,15 +42,22 @@ a.navbar-item {
     transform: translateX(-50px);
     opacity: 0;
 }
-a.navbar-item:focus,
-a.navbar-item:focus-within,
-a.navbar-item:hover,
-a.navbar-item.is-active,
-.navbar-link:focus,
-.navbar-link:focus-within,
-.navbar-link:hover,
-.navbar-link.is-active {
-    background: inherit !important;
+.nav-link,
+a.nav-item {
+    border-bottom: 0 solid rgba(255, 255, 255, 0) !important;
+}
+a.nav-item:focus,
+a.nav-item:focus-within,
+a.nav-item:hover,
+a.nav-item.active,
+.nav-link:focus,
+.nav-link:focus-within,
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(0, 0, 0, 0.2) !important;
+    &:not(.active) {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.4) !important;
+    }
 }
 .active {
     border-bottom: 2px solid rgba(255, 255, 255, 0.7) !important;
@@ -81,4 +88,74 @@ a.navbar-item.is-active,
     display: flex;
     flex-shrink: 0;
     min-height: 3.25rem;
+}
+.animated {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+}
+.animated::before {
+    content: "";
+    position: absolute;
+    top: calc(46.5px - 50vw);
+    left: calc(calc(0px - 29vw) / 2);
+    width: 100vw;
+    height: calc(100vw - 29%);
+    z-index: -1;
+    background: linear-gradient(
+        45deg,
+        rgba(64, 0, 130, 0.46) 19%,
+        rgba(174, 76, 215, 0.48) 50%,
+        rgba(208, 126, 0, 0.55) 81%
+    );
+    background-size: 100% 100%;
+    -webkit-animation: position 15s linear infinite;
+    animation: position 15s linear infinite;
+}
+
+@keyframes position {
+    0% {
+        transform: translate(-40px, 0) rotate(0deg) scale(0.8);
+        filter: hue-rotate(0deg);
+    }
+
+    12.5% {
+        transform: translate(40px, 240px) rotate(45deg) scale(0.9);
+        filter: hue-rotate(45deg);
+    }
+
+    25% {
+        transform: translate(0, -240px) rotate(90deg) scale(0.8);
+        filter: hue-rotate(90deg);
+    }
+
+    37.5% {
+        transform: translate(-40px, 240px) rotate(135deg) scale(0.9);
+        filter: hue-rotate(135deg);
+    }
+
+    50% {
+        transform: translate(40px, 0) rotate(180deg) scale(0.8);
+        filter: hue-rotate(180deg);
+    }
+
+    62.5% {
+        transform: translate(-40px, -240px) rotate(225deg) scale(0.9);
+        filter: hue-rotate(225deg);
+    }
+
+    75% {
+        transform: translate(0, 240px) rotate(270deg) scale(0.8);
+        filter: hue-rotate(270deg);
+    }
+
+    87.5% {
+        transform: translate(40px, -240px) rotate(315deg) scale(0.9);
+        filter: hue-rotate(315deg);
+    }
+
+    100% {
+        transform: translate(-40px, 0) rotate(360deg) scale(0.8);
+        filter: hue-rotate(360deg);
+    }
 }

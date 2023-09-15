@@ -3,35 +3,8 @@
     transform: translateY(0);
     opacity: 1;
 }
-.slide-transition-enter,
-.slide-transition-exit {
+.slide-transition-entering,
+.slide-transition-exiting {
     transform: translateY(10px);
     opacity: 0;
-}
-.fade-transition {
-    transition: opacity 0.5s ease;
-    opacity: 1;
-}
-.fade-transition-enter,
-.fade-transition-exit {
-    opacity: 0;
-}
-.media-content {
-    overflow: hidden;
-}
-.bg-image {
-    position: absolute;
-    margin-top: -0.75rem;
-    margin-left: -0.75rem;
-    height: 100%;
-    width: 100%;
-    background-position: 50% !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-}
-.card-content {
-    padding: 0;
-}
-.media {
-    align-items: stretch;
 }

@@ -63,7 +63,7 @@ export default function Home() {
                         </Transition>
                     </div>
                 </section>
-            </div >
+            </div>
         </div >
     );
 }

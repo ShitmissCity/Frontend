@@ -54,7 +54,7 @@ export default function FAQ() {
                         <h6 className="card-header-title ms-2">{item.title}</h6>
                         <span className="card-header-icon ms-auto me-3" aria-label="more options">
                             <span className="icon">
-                                <FontAwesomeIcon icon={openStates[index] ? solid("angle-down") : solid("angle-up")} />
+                                <FontAwesomeIcon icon={solid("angle-up")} className={(openStates[index] ? "icon-flipped" : "")} />
                             </span>
                         </span>
                     </div>

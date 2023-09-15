@@ -114,7 +114,12 @@ $input-placeholder-color: var(--transparent-black);
 
 input[type="text"] {
     background-color: var(--transparent-black) !important;
-    color: var(--black) !important;
+    &:not([disabled]) {
+        color: var(--black) !important;
+    }
+    &:disabled {
+        color: var(--bs-gray-600) !important;
+    }
     border-color: #6464645c !important;
 }
 
@@ -189,4 +194,38 @@ label::before {
 #vidtop-content {
     top: 0;
     color: #fff;
+}
+
+.input-group .btn {
+    --bs-btn-bg: var(--transparent-black) !important;
+    --bs-btn-color: var(--black) !important;
+}
+
+sub:not(.sub-original) {
+    font-size: 0.6em;
+    position: relative;
+    top: -0.2em;
+    font-weight: 400;
+    color: var(--bs-gray-500);
+}
+
+.fancy-scrollbar::-webkit-scrollbar {
+    width: 15px;
+}
+
+.fancy-scrollbar::-webkit-scrollbar-track {
+    background: #14141467;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.fancy-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4b4b4bb7;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 5px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
 }

@@ -7,11 +7,10 @@ $twitter: #4099ff;
 $loading-background: #0000004f;
 
 // Links
-$link: $primary;
-$link-invert: invert($primary);
-$link-focus-border: $primary;
-
 @import "~bootstrap/scss/variables";
+$link: $light;
+$link-invert: invert($light);
+$link-focus-border: $primary;
 
 $theme-colors: (
     "primary": $primary,
@@ -24,7 +23,25 @@ $theme-colors: (
     "dark": $dark,
 );
 $modal-content-bg: $dark;
-$modal-content-color: $light;
+$modal-content-color: $white;
+$modal-show-transform: translate(0, 0);
+$body-color: $white;
+$toast-color: $white;
+$toast-background-color: rgba($dark, 0.85);
+$toast-header-color: $gray-400;
+$toast-header-background-color: rgba(0, 0, 0, 0.25);
+$toast-header-border-color: rgba($white, 0.05);
+$toast-border-color: rgba($white, 0.15);
+$text-muted: rgba($white, 0.65);
+$toast-font-size: 0.925rem;
+$tooltip-bg: $primary;
+$nav-link-color: $white;
+$link-shade-percentage: 50%;
+$link-hover-color: shift-color($light, $link-shade-percentage);
+$dropdown-color: $white;
+$dropdown-bg: $dark;
+$input-group-addon-bg: $dark;
+$input-group-addon-border-color: rgba($white, 0.15);
 
 @import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
@@ -32,6 +49,14 @@ $modal-content-color: $light;
 @import "~bootstrap/scss/utilities";
 
 $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
+
+$grid-breakpoints: map-merge(
+    $grid-breakpoints,
+    (
+        "xxxl": 1600px,
+        "xxxxl": 2083px,
+    )
+);
 
 $utilities: map-merge(
     $utilities,
@@ -43,18 +68,101 @@ $utilities: map-merge(
                     values: map-merge(map-get(map-get($utilities, "color"), "values"), ($all-colors)),
                 )
             ),
+        // all rounded values are a "hack" to get all the values working until 5.3 is released
+        "rounded":
+            (
+                property: border-radius,
+                class: rounded,
+                values: (
+                    null: var(--#{$prefix}border-radius),
+                    0: 0,
+                    1: var(--#{$prefix}border-radius-sm),
+                    2: var(--#{$prefix}border-radius),
+                    3: var(--#{$prefix}border-radius-lg),
+                    4: var(--#{$prefix}border-radius-xl),
+                    5: var(--#{$prefix}border-radius-2xl),
+                    circle: 50%,
+                    pill: var(--#{$prefix}border-radius-pill),
+                ),
+            ),
+        "rounded-top": (
+            property: border-top-left-radius border-top-right-radius,
+            class: rounded-top,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
+        "rounded-end": (
+            property: border-top-right-radius border-bottom-right-radius,
+            class: rounded-end,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
+        "rounded-bottom": (
+            property: border-bottom-right-radius border-bottom-left-radius,
+            class: rounded-bottom,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
+        "rounded-start": (
+            property: border-bottom-left-radius border-top-left-radius,
+            class: rounded-start,
+            values: (
+                null: var(--#{$prefix}border-radius),
+                0: 0,
+                1: var(--#{$prefix}border-radius-sm),
+                2: var(--#{$prefix}border-radius),
+                3: var(--#{$prefix}border-radius-lg),
+                4: var(--#{$prefix}border-radius-xl),
+                5: var(--#{$prefix}border-radius-2xl),
+                circle: 50%,
+                pill: var(--#{$prefix}border-radius-pill),
+            ),
+        ),
     )
 );
 
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
+@import "~bootstrap/scss/toasts";
 @import "~bootstrap/scss/images";
 @import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/tooltip";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/utilities/api";
