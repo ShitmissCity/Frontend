@@ -17,6 +17,8 @@
         border-radius: 10px;
     }
     > div {
+        background: rgba(18, 18, 18, 0.75);
+        padding-top: 7px;
         transition: width 0.2s ease-in-out;
         width: 100%;
         @media screen and (max-width: 1500px) {
