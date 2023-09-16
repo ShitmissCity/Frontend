@@ -82,7 +82,7 @@ export function Header() {
 
     return (
         <nav className="header navbar is-primary p-0 d-block">
-            <div className="animated navbar navbar-expand-xl p-0 navbar-dark">
+            <div className="animated navbar navbar-expand-xxl p-0 navbar-dark">
                 <div className="navbar-brand">
                     <Link to="/" style={{ fontSize: 20, borderRadius: "4px 0 0 4px", padding: "0 0.5rem" }}>
                         <img src="img/logo-white.png" alt="Shitmiss City" style={{ marginRight: 10, borderRadius: 5, width: "6rem", maxHeight: "100%", maxWidth: "100%" }} />
@@ -95,11 +95,11 @@ export function Header() {
                     <ul className="navbar-nav">
                         {buttons}
                     </ul>
-                    <ul className="navbar-nav ms-auto me-2">
-                        <li className="navbar-item me-2">
+                    <ul className="navbar-nav ms-auto me-xxl-2 d-flex flex-row">
+                        <li className="nav-item me-xxl-2">
                             <LoginButton />
                         </li>
-                        <li className="navbar-item">
+                        <li className="nav-item">
                             <a className="btn btn-dark" href="https://discord.gg/h58zp9f" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={brands('discord')} /><span style={{ marginLeft: 7 }}>Our Discord Server</span></a>
                         </li>
                     </ul>

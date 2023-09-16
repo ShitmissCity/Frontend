@@ -45,7 +45,7 @@ export default function Staff() {
         <section className="section app-background">
             <div className="d-flex justify-content-evenly mb-5">
                 <h3 className="theme-color text-center">Teams<br /><h4>{teams.length}</h4></h3>
-                <h3 className="theme-color text-center">Staff Memebers<br /><h4>{staff.length}</h4></h3>
+                <h3 className="theme-color text-center">Staff Memembers<br /><h4>{staff.length}</h4></h3>
             </div>
             <h2 className="subtitle text-center">Staff</h2>
             <Transition in={!loading} timeout={500} classNames="slide-transition">

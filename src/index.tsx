@@ -16,8 +16,6 @@ const baseUrl = document.getElementsByTagName("base")[0].getAttribute("href");
 
 function Index() {
     const playerRef = React.useRef<HTMLVideoElement>();
-    const appRef = React.useRef<HTMLDivElement>();
-    const mobileRef = React.useRef<HTMLDivElement>();
 
     function play() {
         if (playerRef.current) {
@@ -28,15 +26,6 @@ function Index() {
 
     React.useEffect(() => {
         document.getElementById("root").addEventListener("click", play);
-        window.addEventListener("resize", () => {
-            if (window.innerWidth < 1280) {
-                appRef.current.style.display = "none";
-                mobileRef.current.style.display = "block";
-            } else {
-                appRef.current.style.display = "block";
-                mobileRef.current.style.display = "none";
-            }
-        });
     }, []);
 
     // return <React.StrictMode>
@@ -47,24 +36,8 @@ function Index() {
                     <Request>
                         <Auth>
                             <Modal>
-                                <div ref={appRef} style={{ display: window.innerWidth < 1280 ? "none" : null }}>
-                                    <Header />
-                                    <App />
-                                </div>
-                                <div ref={mobileRef} style={{ display: window.innerWidth < 1280 ? null : "none" }}>
-                                    <div className="hero">
-                                        <div className="hero-body">
-                                            <div className="container">
-                                                <div className="row app-background rounded text-center">
-                                                    <div className="col-12">
-                                                        <h1 className="card-title">Mobile Not Supported</h1>
-                                                        <p className="card-text">This website is not supported on mobile devices. Please use a desktop or laptop computer.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Header />
+                                <App />
                                 <Footer />
 
                                 <div className="video-background">

@@ -9,10 +9,13 @@ import Transition from "../components/Transition";
 import { MapPool, Map } from "../entity";
 import { BeatSaverApi } from "../entity/BeatSaverApi";
 import { getScorePercentage, getScorePercentageRelative, getTeamScores } from "../entity/MapPoolAndScores";
+import MobileUnfriendly from "../components/MobileUnfriendly";
 
 type res = (value: Response) => void;
 
 export default function Teams() {
+    const mobileRef = React.useRef<HTMLDivElement>(null);
+    const qualRef = React.useRef<HTMLDivElement>(null);
     const [loading, setLoading] = useState(true);
     const [qualif, setQualif] = useState<MapPool>(null);
     const { setTitle } = useTitle();
@@ -62,6 +65,15 @@ export default function Teams() {
                 setQualif(res);
             });
         }).catch(res => console.error(res.text())).finally(() => setLoading(false));
+        window.addEventListener("resize", () => {
+            if (window.innerWidth < 1400) {
+                mobileRef.current.style.display = "block";
+                qualRef.current.style.display = "none";
+            } else {
+                mobileRef.current.style.display = "none";
+                qualRef.current.style.display = "block";
+            }
+        });
     }, [setTitle]);
 
     function drawTeamScores(map: Map) {
@@ -92,62 +104,67 @@ export default function Teams() {
 
     return (
         <>
-            <Loader hide={!loading} />
-            <BackgroundContainer size="small">
-                <div className="hero-body">
-                    <div className="container" style={{ width: "71%" }}>
-                        <h1 className="title">
-                            Qualifier
-                        </h1>
+            <div ref={mobileRef} style={{ display: window.innerWidth >= 1400 ? "none" : null }}>
+                <MobileUnfriendly />
+            </div>
+            <div ref={qualRef} style={{ display: window.innerWidth < 1400 ? "none" : null }}>
+                <Loader hide={!loading} />
+                <BackgroundContainer size="small">
+                    <div className="hero-body">
+                        <div className="container" style={{ width: "71%" }}>
+                            <h1 className="title">
+                                Qualifier
+                            </h1>
+                        </div>
                     </div>
-                </div>
-            </BackgroundContainer>
-            <section className="section app-background">
-                <TransitionGroup>
-                    {!loading && qualif && qualif.maps.map((map, index) => (
-                        <Transition key={`mapfade${index}`} in={true} classNames="mb-3 fade-transition" timeout={500}>
-                            <SongInfo map={map} index={index} fullStyle={false} additionalContent={
-                                (
-                                    <div className="col-6 fancy-scrollbar" style={{ overflowX: "scroll", overflowY: "clip" }}>
-                                        <div style={{ width: 1240, height: 241 }}>
-                                            <div className={"mt-3 me-3 mb-3 fancy-scrollbar rounded" + (map.scores.length > 0 ? "" : " no-scrollbar")} style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56, display: "inline-block" }}>
-                                                <div className="card" style={{ width: 586, position: "relative" }}>
-                                                    <div className="row g-0" style={{ position: "absolute", top: -56, paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
-                                                        <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>&nbsp;</h3>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Team</h3>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Score</h3>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>Accuracy <sub>(Relative)</sub></h3>
+                </BackgroundContainer>
+                <section className="section app-background">
+                    <TransitionGroup>
+                        {!loading && qualif && qualif.maps.map((map, index) => (
+                            <Transition key={`mapfade${index}`} in={true} classNames="mb-3 fade-transition" timeout={500}>
+                                <SongInfo map={map} index={index} fullStyle={false} additionalContent={
+                                    (
+                                        <div className="col-6 fancy-scrollbar" style={{ overflowX: "scroll", overflowY: "clip" }}>
+                                            <div style={{ width: 1240, height: 241 }}>
+                                                <div className={"mt-3 me-3 mb-3 fancy-scrollbar rounded" + (map.scores.length > 0 ? "" : " no-scrollbar")} style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56, display: "inline-block" }}>
+                                                    <div className="card" style={{ width: 586, position: "relative" }}>
+                                                        <div className="row g-0" style={{ position: "absolute", top: -56, paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
+                                                            <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>&nbsp;</h3>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Team</h3>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Score</h3>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>Accuracy <sub>(Relative)</sub></h3>
+                                                            </div>
                                                         </div>
+                                                        {drawTeamScores(map)}
                                                     </div>
-                                                    {drawTeamScores(map)}
                                                 </div>
-                                            </div>
-                                            <div className={"mt-3 me-3 mb-3 fancy-scrollbar rounded" + (map.scores.length > 0 ? "" : " no-scrollbar")} style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56, display: "inline-block" }}>
-                                                <div className="card" style={{ width: 586, position: "relative" }}>
-                                                    <div className="row g-0" style={{ position: "absolute", top: -56, paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
-                                                        <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>&nbsp;</h3>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Player</h3>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Score</h3>
-                                                            <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>Accuracy <sub>(Relative)</sub></h3>
+                                                <div className={"mt-3 me-3 mb-3 fancy-scrollbar rounded" + (map.scores.length > 0 ? "" : " no-scrollbar")} style={{ height: "calc(256px - 2rem)", overflow: "hidden", overflowY: "scroll", position: "relative", paddingTop: 56, display: "inline-block" }}>
+                                                    <div className="card" style={{ width: 586, position: "relative" }}>
+                                                        <div className="row g-0" style={{ position: "absolute", top: -56, paddingRight: 15, borderStartEndRadius: "var(--bs-border-radius)", borderStartStartRadius: "var(--bs-border-radius)", overflow: "hidden" }}>
+                                                            <div className="d-flex" style={{ backgroundColor: "#111111aa" }}>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ width: 52 }}>&nbsp;</h3>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Player</h3>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 157 }}>Score</h3>
+                                                                <h3 className="text-center pt-2 pb-2 m-0" style={{ borderLeft: "1px solid #40404066", width: 220 }}>Accuracy <sub>(Relative)</sub></h3>
+                                                            </div>
                                                         </div>
+                                                        {drawPlayerScores(map)}
                                                     </div>
-                                                    {drawPlayerScores(map)}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )
-                            } />
-                        </Transition>))}
-                </TransitionGroup>
-                {!loading && !qualif && (
-                    <div className="d-flex justify-content-center">
-                        <h3 className="text-center">No qualifier available at this moment.</h3>
-                    </div>
-                )}
-            </section>
+                                    )
+                                } />
+                            </Transition>))}
+                    </TransitionGroup>
+                    {!loading && !qualif && (
+                        <div className="d-flex justify-content-center">
+                            <h3 className="text-center">No qualifier available at this moment.</h3>
+                        </div>
+                    )}
+                </section>
+            </div>
         </>
     );
 }
