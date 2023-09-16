@@ -88,9 +88,11 @@ export function Header() {
                         <img src="img/logo-white.png" alt="Shitmiss City" style={{ marginRight: 10, borderRadius: 5, width: "6rem", maxHeight: "100%", maxWidth: "100%" }} />
                     </Link>
                 </div>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
+                <div className="me-2 d-flex align-items-center">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                </div>
                 <div className="navbar-collapse collapse me-auto" id="navbarCollapse">
                     <ul className="navbar-nav">
                         {buttons}

@@ -15,6 +15,12 @@
     margin: 25px auto auto;
     box-shadow: 2px 2px 5px 6px #00000024;
     z-index: 50000;
+
+    @media screen and (max-width: 1399px) {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+    }
 }
 
 a.navbar-item:focus,
@@ -134,10 +140,16 @@ a.nav-item.active,
     animation: position 15s linear infinite;
 
     @media screen and (max-width: 1399px) {
+        left: 0;
         height: 100vh;
+        top: 0;
         -webkit-animation: position-mobile 15s linear infinite;
         animation: position-mobile 15s linear infinite;
     }
+}
+
+.navbar-toggler {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 1399px) {
