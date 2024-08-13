@@ -6,7 +6,7 @@ import { useAuth } from "./Auth";
 export default function LoginButton() {
     const { isLoggedIn, logout } = useAuth();
 
-    const loginUrl = `${process.env.REACT_APP_REQUEST_URL}/auth/login?callback=${encodeURIComponent(process.env.REACT_APP_REQUEST_URL + "/callback")}&env=${process.env.REACT_APP_ENV}`;
+    const loginUrl = `${process.env.REACT_APP_REQUEST_URL}/auth/login?callback=${encodeURIComponent(process.env.REACT_APP_REQUEST_URL + "/auth/callback")}`;
     if (isLoggedIn)
         return (
             <button className="btn btn-dark" onClick={() => logout()}>

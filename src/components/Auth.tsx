@@ -23,6 +23,7 @@ export function useAuth() {
 }
 
 let count = 1;
+const AuthTokenTime = 8 * 60 * 60;
 
 export default function Auth(props: PropsWithChildren) {
     const [user, setUser] = useState<User>(null);
@@ -43,7 +44,7 @@ export default function Auth(props: PropsWithChildren) {
                     return;
                 }
                 count++;
-                let token = getCookie("refreshToken");
+                let token = getCookie("accessToken");
                 if (token)
                     update(token.value);
                 else
@@ -57,7 +58,6 @@ export default function Auth(props: PropsWithChildren) {
             showToast("Logged out", "Auth");
         else
             showToast("Logged out due to internal errors", "Auth");
-        deleteCookie("refreshToken");
         deleteCookie("accessToken");
         request.setAuthorizationHeader(undefined);
         setUser(null);
@@ -69,12 +69,12 @@ export default function Auth(props: PropsWithChildren) {
 
     function update(value: string) {
         if (value != null) {
-            request.getUrl('/auth/token', { method: "POST", body: JSON.stringify({ token: value }), headers: { 'content-type': 'application/json' } }).then(response => {
+            request.setAuthorizationHeader("Bearer " + value);
+            request.getUrl('/auth/refresh', { method: "POST", headers: { 'content-type': 'application/json' } }).then(response => {
                 if (response.ok) {
-                    response.json().then(data => {
-                        request.setAuthorizationHeader("JWT " + data.accessToken);
-                        setCookie("accessToken", data.accessToken, 60 * 15);
-                        setCookie("refreshToken", data.refreshToken, 60 * 60 * 24 * 7);
+                    response.text().then(data => {
+                        request.setAuthorizationHeader("Bearer " + data);
+                        setCookie("accessToken", data, AuthTokenTime);
                         if (!user)
                             login();
                     });
@@ -84,7 +84,7 @@ export default function Auth(props: PropsWithChildren) {
     }
 
     useEffect(() => {
-        let token = getCookie("refreshToken");
+        let token = getCookie("accessToken");
         if (token)
             update(token.value);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -92,10 +92,10 @@ export default function Auth(props: PropsWithChildren) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            let token = getCookie("refreshToken");
+            let token = getCookie("accessToken");
             if (token)
                 update(token.value);
-        }, 14 * 60 * 1000 + 30 * 1000);
+        }, AuthTokenTime - 60);
         return () => clearInterval(interval);
     }, []);
 
