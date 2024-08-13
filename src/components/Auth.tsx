@@ -23,7 +23,7 @@ export function useAuth() {
 }
 
 let count = 1;
-const AuthTokenTime = 8 * 60 * 60;
+export const AuthTokenTime = 8 * 60 * 60;
 
 export default function Auth(props: PropsWithChildren) {
     const [user, setUser] = useState<User>(null);
