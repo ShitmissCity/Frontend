@@ -70,7 +70,7 @@ export default function Auth(props: PropsWithChildren) {
     function update(value: string) {
         if (value != null) {
             request.setAuthorizationHeader("Bearer " + value);
-            request.getUrl('/auth/refresh', { method: "POST", headers: { 'content-type': 'application/json' } }).then(response => {
+            request.getUrl('/auth/refresh').then(response => {
                 if (response.ok) {
                     response.text().then(data => {
                         request.setAuthorizationHeader("Bearer " + data);
