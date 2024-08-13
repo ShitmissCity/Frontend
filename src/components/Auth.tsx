@@ -95,7 +95,7 @@ export default function Auth(props: PropsWithChildren) {
             let token = getCookie("accessToken");
             if (token)
                 update(token.value);
-        }, AuthTokenTime - 60);
+        }, (AuthTokenTime - 60) * 1000);
         return () => clearInterval(interval);
     }, []);
 
