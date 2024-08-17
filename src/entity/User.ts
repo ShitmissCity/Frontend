@@ -28,6 +28,7 @@ export interface Team {
     seed: number;
     avatar_url: string;
     leader: User;
+    leader_id: number;
     users: User[];
     invites: Invitation[];
 }

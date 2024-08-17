@@ -334,10 +334,10 @@ export default function Settings() {
                             <form onChange={inviteFormChanged} onSubmit={sendInvite}>
                                 <div className="form-group">
                                     <label htmlFor="inviteCode">Invite ScoreSaber Id</label>
-                                    <input type="text" className="form-control" id="inviteCode" placeholder={(user.id !== user.team.leader.id ? "Only team leader can invite." : "Invite ScoreSaber Id")} value={invite} onChange={onInputChange} disabled={user.id !== user.team.leader.id} />
+                                    <input type="text" className="form-control" id="inviteCode" placeholder={(user.id !== team.leader_id ? "Only team leader can invite." : "Invite ScoreSaber Id")} value={invite} onChange={onInputChange} disabled={user.id !== team.leader_id} />
                                 </div>
                                 {!inviteSent && <button type="submit" className="btn btn-primary mt-2">Invite</button>}
-                                {inviteSent && user.id === user.team.leader.id && <button type="submit" className="btn btn-primary mt-2" disabled>Invited</button>}
+                                {inviteSent && user.id === team.leader_id && <button type="submit" className="btn btn-primary mt-2" disabled>Invited</button>}
                             </form>
                         </div>
                     }
