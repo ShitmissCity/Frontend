@@ -11,6 +11,7 @@ export default function Settings() {
     const [twitchName, setTwitchName] = useState("");
     const [scoresaberId, setScoresaberId] = useState("");
     const { user, login } = useAuth();
+    const [team, setTeam] = useState(user.team);
     const [teamName, setTeamName] = useState((user.team && user.team.name) || "");
     const [teamColor, setTeamColor] = useState((user.team && HexToRGB(user.team.color)) || 0);
     const [teamImg, setTeamImg] = useState((user.team && user.team.avatar_url) || "/img/icon-256.png");
@@ -19,7 +20,6 @@ export default function Settings() {
     const getUrl = useRequest().getUrl;
     const [sent, setSent] = useState(true);
     const [teamSent, setTeamSent] = useState(true);
-    const [teamMembers, setTeamMembers] = useState((user.team && user.team.users) || []);
     const [invite, setInvite] = useState("");
     const [inviteSent, setInviteSent] = useState(true);
 
@@ -34,7 +34,7 @@ export default function Settings() {
             getUrl('/authorized/team').then(res => {
                 if (res.ok) {
                     res.json().then((data: Team) => {
-                        setTeamMembers(data.users);
+                        setTeam(data);
                     });
                 }
                 else {
@@ -312,10 +312,10 @@ export default function Settings() {
                                 {teamSent && user.id === user.team.leader.id && <button type="submit" className="btn btn-primary mt-2" disabled>Saved</button>}
                             </form>}
                     </div>
-                    {user.team &&
+                    {team &&
                         <div className="col-3">
                             <h1>Team Members</h1>
-                            {teamMembers && teamMembers.map((member, index) => {
+                            {team.users && team.users.map((member, index) => {
                                 return (
                                     <div key={index} className="card rounded" style={{ marginRight: 14, marginBottom: 14 }}>
                                         <div className="row g-0">
