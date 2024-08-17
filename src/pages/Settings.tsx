@@ -35,6 +35,9 @@ export default function Settings() {
                 if (res.ok) {
                     res.json().then((data: Team) => {
                         setTeam(data);
+                        setTeamName(data.name);
+                        setTeamColor(HexToRGB(data.color));
+                        setTeamImg(data.avatar_url);
                     });
                 }
                 else {
