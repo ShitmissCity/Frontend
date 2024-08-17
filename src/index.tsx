@@ -66,22 +66,27 @@ function Index() {
     // </React.StrictMode>;
 }
 
-function UnsuportedBrowser() {
-    return <div className="container">
-        <div className="row">
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <h1 className="card-title">Unsuported Browser</h1>
-                        <p className="card-text">Your browser does not support the features required by this website. Please use a modern chromium browser such as <a className="btn btn-primary" href="https://www.google.com/chrome/">Google Chrome</a> or <a className="btn btn-primary" href="https://www.microsoft.com/edge">Edge</a></p>
+function UnsupportedBrowser() {
+    return <>
+        <div className="container">
+            <div className="row">
+                <div className="col-12 d-flex flex-wrap justify-text-center">
+                    <div className="col-12 text-center">
+                        <h1>Unsupported Browser</h1>
+                    </div>
+                    <div className="col-12 text-center">
+                        <p>Your browser is using a rendering engine we do not support. This is because the styling engine your browser is using doesn't properly respect the styling standards.</p>
+                    </div>
+                    <div className="col-12 text-center">
+                        We recommend using a browser like <a className="btn btn-primary" href="https://www.google.com/chrome/">Google Chrome</a> or <a className="btn btn-primary" href="https://www.microsoft.com/edge">Microsoft Edge</a> as these respects the proper styling standards.
                     </div>
                 </div>
             </div>
         </div>
-    </div>;
+    </>
 }
 
 if (window.navigator.userAgent.includes("AppleWebKit"))
     createRoot(document.getElementById("root")).render(<Index />);
 else
-    createRoot(document.getElementById("root")).render(<UnsuportedBrowser />);
+    createRoot(document.getElementById("root")).render(<UnsupportedBrowser />);
