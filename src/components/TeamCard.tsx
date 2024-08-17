@@ -14,7 +14,7 @@ export default function TeamCard(props: { team: Team }) {
                     <div className="col-sm-9 pt-1 ps-2">
                         <h5>{team.name}</h5>
                         <h6>Users</h6>
-                        <h6>{team.members.map(t => t.username).join(", ")}</h6>
+                        <h6>{team.users.map(t => t.username).join(", ")}</h6>
                     </div>
                 </div>
             </div>

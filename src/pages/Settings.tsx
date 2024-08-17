@@ -19,7 +19,7 @@ export default function Settings() {
     const getUrl = useRequest().getUrl;
     const [sent, setSent] = useState(true);
     const [teamSent, setTeamSent] = useState(true);
-    const [teamMembers, setTeamMembers] = useState((user.team && user.team.members) || []);
+    const [teamMembers, setTeamMembers] = useState((user.team && user.team.users) || []);
     const [invite, setInvite] = useState("");
     const [inviteSent, setInviteSent] = useState(true);
 
@@ -34,7 +34,7 @@ export default function Settings() {
             getUrl('/authorized/team').then(res => {
                 if (res.ok) {
                     res.json().then((data: Team) => {
-                        setTeamMembers(data.members);
+                        setTeamMembers(data.users);
                     });
                 }
                 else {
