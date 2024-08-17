@@ -265,7 +265,7 @@ export default function Settings() {
                     </div>
                     <div className="col-4">
                         <h1>Team Settings</h1>
-                        {!user.team && user.scoresaber_id && user.twitch_name &&
+                        {!team && user.scoresaber_id && user.twitch_name &&
                             (<form onSubmit={createTeam} onChange={createTeamChanged}>
                                 <div className="form-group">
                                     <label htmlFor="teamname">Team Name</label>
@@ -286,30 +286,30 @@ export default function Settings() {
                                 {teamSent && <button type="submit" className="btn btn-primary mt-2" disabled>Create</button>}
                             </form>)
                         }
-                        {!user.team && (!user.scoresaber_id || !user.twitch_name) &&
+                        {!team && (!user.scoresaber_id || !user.twitch_name) &&
                             <h3 className="alert alert-danger" role="alert">
                                 You need to set your Twitch Name and ScoreSaber ID to create a team!
                             </h3>
                         }
-                        {user.team &&
+                        {team &&
                             <form onChange={teamFormChanged} onSubmit={updateTeam}>
                                 <div className="form-group">
                                     <label htmlFor="teamname">Team Name</label>
-                                    <input type="text" className="form-control" id="teamname" placeholder="Team Name" value={teamName} onChange={onInputChange} disabled={user.id !== user.team.leader.id} />
+                                    <input type="text" className="form-control" id="teamname" placeholder="Team Name" value={teamName} onChange={onInputChange} disabled={user.id !== team.leader_id} />
                                 </div>
                                 <div className="form-group">
                                     <label>Team Color</label>
-                                    <input type="color" className="form-control form-control-color p-0 border-0" style={{ backgroundColor: "transparent" }} id="teamColorHex" value={TeamColorHex()} onChange={onInputChange} disabled={user.id !== user.team.leader.id} />
+                                    <input type="color" className="form-control form-control-color p-0 border-0" style={{ backgroundColor: "transparent" }} id="teamColorHex" value={TeamColorHex()} onChange={onInputChange} disabled={user.id !== team.leader_id} />
                                 </div>
                                 <div className="row">
                                     <div className="form-group flex-grow-1 " style={{ width: "auto" }}>
                                         <label htmlFor="teamImg">Team Image</label>
-                                        <input type="text" className="form-control" id="teamImg" value={teamImg} onChange={onInputChange} disabled={user.id !== user.team.leader.id} />
+                                        <input type="text" className="form-control" id="teamImg" value={teamImg} onChange={onInputChange} disabled={user.id !== team.leader_id} />
                                     </div>
                                     <div style={{ width: 128, height: 128, padding: 0, marginRight: "calc(0.5 * var(--bs-gutter-x))", backgroundImage: `url(${teamImg})`, backgroundPosition: "center", backgroundRepeat: "no-repeat", backgroundSize: "cover" }} />
                                 </div>
                                 {!teamSent && <button type="submit" className="btn btn-primary mt-2">Save</button>}
-                                {teamSent && user.id === user.team.leader.id && <button type="submit" className="btn btn-primary mt-2" disabled>Saved</button>}
+                                {teamSent && user.id === team.leader_id && <button type="submit" className="btn btn-primary mt-2" disabled>Saved</button>}
                             </form>}
                     </div>
                     {team &&
